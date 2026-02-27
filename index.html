@@ -535,9 +535,9 @@
             startAIProgress();
 
             const chartDataSummary = currentPalaces.map(p => `${p.name}(${p.stem}${p.branch}): 主星[${p.main_stars.join(',')}]`).join(' | ');
-            const prompt = `你是位紫微斗數大師「田禾宮主」，負責幫信眾解惑。緣主資料：姓名${currentMetadata.name}，農曆${currentMetadata.lDate[0]}年${currentMetadata.lDate[1]}月${currentMetadata.lDate[2]}日生。
+            const prompt = `你是紫微斗數大師「田禾宮主」。緣主資料：姓名${currentMetadata.name}，農曆${currentMetadata.lDate[0]}年${currentMetadata.lDate[1]}月${currentMetadata.lDate[2]}日生。
             全盤宮位摘要：${chartDataSummary}。命主核心星曜：${currentMetadata.starsToAnalyze.join('、')}。
-            請根據以上資訊，提供一份約 500 字的深度分析。包含命格隱藏格局、${currentMetadata.thisYear}年與${currentMetadata.nextYear}年的吉凶推演，以及針對事業、情緣的具體大師建議。
+            請根據以上資訊，提供一份超過 800 字的深度分析。包含命格隱藏格局、${currentMetadata.thisYear}年與${currentMetadata.nextYear}年的吉凶推演，以及針對事業、情緣的具體大師建議。
             請分段輸出文字，風格需專業、莊重。請勿精簡，盡可能詳盡。`;
 
             try {
@@ -590,4 +590,3 @@
     </script>
 </body>
 </html>
-
