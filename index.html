@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>田禾宮・紫微命盤排版系統</title>
     <style>
+        /* 基礎樣式設計 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; }
+        body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; line-height: 1.6; }
         
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
-        /* 標題區塊：吉祥物圖片 240px 置於左方 */
+        /* 標題區塊：吉祥物圖片維持在左方，尺寸調整為適中的 200px */
         .header { 
             margin-bottom: 30px; 
-            padding: 50px 30px; 
+            padding: 40px 30px; 
             background: linear-gradient(135deg, #A62C2B 0%, #801C1B 100%); 
             border-radius: 24px; 
             color: #F5E6BE; 
@@ -21,120 +22,120 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px; 
+            gap: 40px; 
         }
         .header img { 
-            width: 240px; 
+            width: 200px; 
             height: auto; 
-            border-radius: 25px;
-            border: 5px solid #F5E6BE;
+            border-radius: 20px;
+            border: 4px solid #F5E6BE;
             background: white;
-            padding: 8px;
+            padding: 5px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
         }
         .header-text { text-align: left; }
-        .header h1 { font-size: 56px; letter-spacing: 15px; margin-bottom: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .header p { font-size: 24px; letter-spacing: 5px; opacity: 0.9; }
+        .header h1 { font-size: 42px; letter-spacing: 12px; margin-bottom: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 18px; letter-spacing: 4px; opacity: 0.9; }
         
-        .input-section { background: #FFFFFF; padding: 35px; border-radius: 15px; border: 2px solid #A62C2B; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .input-section h2 { color: #A62C2B; margin-bottom: 25px; font-size: 24px; border-left: 6px solid #A62C2B; padding-left: 15px; }
+        /* 輸入區域 */
+        .input-section { background: #FFFFFF; padding: 30px; border-radius: 15px; border: 2px solid #A62C2B; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .input-section h2 { color: #A62C2B; margin-bottom: 20px; font-size: 22px; border-left: 6px solid #A62C2B; padding-left: 15px; }
         
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; }
-        .form-group label { font-weight: bold; margin-bottom: 10px; color: #555; }
-        .form-group input, .form-group select { padding: 14px; border: 1px solid #D1C4B2; border-radius: 8px; font-size: 16px; background: #FFF; transition: all 0.3s; }
+        .form-group label { font-weight: bold; margin-bottom: 8px; color: #555; font-size: 14px; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #D1C4B2; border-radius: 8px; font-size: 15px; background: #FFF; transition: all 0.3s; }
         
-        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 24px; padding: 22px 40px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 4px; }
+        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 20px; padding: 18px 40px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 3px; }
         .btn-calculate:hover { background-color: #C13F3E; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(166, 44, 43, 0.3); }
         
         .result-section { display: none; }
         .result-section.active { display: block; animation: fadeIn 0.8s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* 命盤圖形整體加大 */
-        .chart-container { background: #F4EBE2; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); }
-        .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 15px; max-width: 1050px; margin: 0 auto; }
+        /* 命盤圖形：調整為適中尺寸 */
+        .chart-container { background: #F4EBE2; border-radius: 20px; padding: 30px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); }
+        .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
         
-        .palace { background: #FFF8F2; border: 2px solid #A62C2B; border-radius: 12px; padding: 20px; min-height: 230px; position: relative; transition: all 0.3s; }
-        .palace:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 30px rgba(166, 44, 43, 0.2); border-color: #C13F3E; }
-        .palace.life-palace { background: #FFF0F0; border-width: 4px; border-color: #A62C2B; }
+        .palace { background: #FFF8F2; border: 2px solid #A62C2B; border-radius: 10px; padding: 12px; min-height: 160px; position: relative; transition: all 0.3s; }
+        .palace:hover { transform: scale(1.02); z-index: 10; box-shadow: 0 5px 15px rgba(166, 44, 43, 0.1); }
+        .palace.life-palace { background: #FFF0F0; border-width: 3px; border-color: #A62C2B; }
         
-        .palace-name { text-align: center; font-weight: bold; font-size: 26px; color: #A62C2B; margin-bottom: 15px; border-bottom: 2px solid #E0D5C1; padding-bottom: 10px; }
+        .palace-name { text-align: center; font-weight: bold; font-size: 18px; color: #A62C2B; margin-bottom: 8px; border-bottom: 1px solid #E0D5C1; padding-bottom: 5px; }
         
-        .main-stars { font-size: 20px; color: #A62C2B; line-height: 1.8; font-weight: bold; }
-        .main-stars span { display: inline-block; margin: 3px 8px; border-bottom: 2px solid rgba(166, 44, 43, 0.2); }
+        .main-stars { font-size: 14px; color: #A62C2B; line-height: 1.6; font-weight: bold; }
+        .main-stars span { display: inline-block; margin: 2px 4px; border-bottom: 1px solid rgba(166, 44, 43, 0.1); }
         
-        .sec-stars { font-size: 14px; color: #666; position: absolute; top: 75px; right: 15px; text-align: right; }
+        .sec-stars { font-size: 11px; color: #666; position: absolute; top: 45px; right: 8px; text-align: right; }
         
-        .stem-branch { position: absolute; bottom: 15px; right: 15px; font-size: 20px; font-weight: bold; color: #8E7341; }
-        .age-range { position: absolute; bottom: 15px; left: 15px; font-size: 16px; color: #777; font-family: Consolas, monospace; }
+        .stem-branch { position: absolute; bottom: 8px; right: 8px; font-size: 14px; font-weight: bold; color: #8E7341; }
+        .age-range { position: absolute; bottom: 8px; left: 8px; font-size: 12px; color: #777; font-family: Consolas, monospace; }
         
-        /* 中央方塊 2x2 置中加大 */
+        /* 中央方塊 2x2 置中：調整字體與比例 */
         .center-palace { 
             background: white; 
-            border: 6px double #A62C2B; 
-            border-radius: 20px; 
-            padding: 40px; 
+            border: 5px double #A62C2B; 
+            border-radius: 15px; 
+            padding: 20px; 
             text-align: center; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            font-size: 64px; 
+            font-size: 32px; 
             color: #A62C2B; 
             font-weight: bold; 
             grid-column: span 2; 
             grid-row: span 2; 
-            box-shadow: inset 0 0 35px rgba(166, 44, 43, 0.12);
-            letter-spacing: 25px;
-            line-height: 1.8;
+            box-shadow: inset 0 0 20px rgba(166, 44, 43, 0.08);
+            letter-spacing: 12px;
+            line-height: 1.5;
         }
         
-        /* 分析報告區塊 */
-        .analysis-content { background: #FFFEFA; padding: 60px; border-radius: 24px; border: 1px solid #E0D5C1; max-width: 1050px; margin: 0 auto; box-shadow: 0 15px 50px rgba(0,0,0,0.05); }
-        .analysis-header { text-align: center; margin-bottom: 50px; border-bottom: 5px solid #A62C2B; padding-bottom: 30px; }
-        .analysis-header h2 { color: #A62C2B; font-size: 38px; letter-spacing: 8px; margin-bottom: 15px; }
-        .analysis-header p { color: #8E7341; font-size: 20px; letter-spacing: 5px; }
+        /* 分析報告區塊：深度不精簡 */
+        .analysis-content { background: #FFFEFA; padding: 50px; border-radius: 24px; border: 1px solid #E0D5C1; max-width: 800px; margin: 0 auto; box-shadow: 0 15px 50px rgba(0,0,0,0.05); }
+        .analysis-header { text-align: center; margin-bottom: 40px; border-bottom: 4px solid #A62C2B; padding-bottom: 25px; }
+        .analysis-header h2 { color: #A62C2B; font-size: 32px; letter-spacing: 6px; margin-bottom: 12px; }
+        .analysis-header p { color: #8E7341; font-size: 16px; letter-spacing: 4px; }
         
-        .info-box { background-color: #FDFBEE; padding: 40px; border-radius: 15px; border: 1.5px solid #D4AF37; margin-bottom: 50px; }
-        .info-box table { width: 100%; font-size: 22px; border-collapse: collapse; }
-        .info-box td { padding: 15px; }
-        .info-box .highlight { color: #A62C2B; font-weight: bold; font-size: 1.1em; }
+        .info-box { background-color: #FDFBEE; padding: 30px; border-radius: 12px; border: 1.5px solid #D4AF37; margin-bottom: 40px; }
+        .info-box table { width: 100%; font-size: 18px; border-collapse: collapse; }
+        .info-box td { padding: 10px; }
+        .info-box .highlight { color: #A62C2B; font-weight: bold; }
         
-        .section-title { color: #FFF; background: #A62C2B; padding: 22px 30px; border-radius: 12px 12px 0 0; margin-bottom: 0; font-size: 24px; letter-spacing: 4px; }
-        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 45px; border-radius: 0 0 12px 12px; line-height: 2.2; font-size: 18px; margin-bottom: 50px; }
+        .section-title { color: #FFF; background: #A62C2B; padding: 18px 25px; border-radius: 10px 10px 0 0; margin-bottom: 0; font-size: 20px; letter-spacing: 3px; }
+        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 35px; border-radius: 0 0 10px 10px; line-height: 2.2; font-size: 16px; margin-bottom: 50px; }
         
-        .quote { color: #7B5E26; font-style: italic; border-bottom: 3px solid #FDFBEE; padding-bottom: 25px; margin-bottom: 40px; font-size: 22px; line-height: 1.8; text-align: center; }
+        .quote { color: #7B5E26; font-style: italic; border-bottom: 2px solid #FDFBEE; padding-bottom: 25px; margin-bottom: 40px; font-size: 18px; line-height: 1.8; text-align: center; }
         
-        .analysis-item { margin-bottom: 45px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 30px; }
+        .analysis-item { margin-bottom: 40px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 25px; }
         .analysis-item:last-child { border-bottom: none; }
-        .analysis-item b { color: #A62C2B; font-size: 22px; display: block; margin-bottom: 18px; border-left: 8px solid #A62C2B; padding-left: 18px; }
-        .analysis-item p { margin-bottom: 15px; }
+        .analysis-item b { color: #A62C2B; font-size: 20px; display: block; margin-bottom: 15px; border-left: 6px solid #A62C2B; padding-left: 15px; }
         
-        .year-prediction { margin-bottom: 60px; border: 3px solid #8E7341; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(142, 115, 65, 0.1); }
+        .year-prediction { margin-bottom: 50px; border: 2px solid #8E7341; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(142, 115, 65, 0.1); }
         .year-prediction.next-year { border-color: #A62C2B; box-shadow: 0 10px 30px rgba(166, 44, 43, 0.1); }
-        .year-header { background: #8E7341; color: #FFF; padding: 30px; text-align: center; font-weight: bold; font-size: 24px; letter-spacing: 4px; }
+        .year-header { background: #8E7341; color: #FFF; padding: 25px; text-align: center; font-weight: bold; font-size: 20px; letter-spacing: 3px; }
         .year-prediction.next-year .year-header { background: #A62C2B; }
-        .year-content { padding: 50px; background: #FFFEFA; }
         
-        .si-hua-tag { display: inline-block; background: #F2DEDE; color: #A62C2B; padding: 15px 40px; border-radius: 50px; font-weight: bold; font-size: 20px; margin-bottom: 35px; border: 1px solid #EBCCD1; }
+        .year-content { padding: 40px; background: #FFFEFA; }
+        
+        .si-hua-tag { display: inline-block; background: #F2DEDE; color: #A62C2B; padding: 12px 35px; border-radius: 40px; font-weight: bold; font-size: 16px; margin-bottom: 25px; border: 1px solid #EBCCD1; }
         .year-prediction.next-year .si-hua-tag { background: #FDFBEE; color: #8E7341; border: 1px solid #D4AF37; }
         
-        .advice-box { background: #F9F5EF; padding: 35px; border-left: 12px solid #8E7341; margin-top: 35px; border-radius: 4px; }
+        .advice-box { background: #F9F5EF; padding: 25px; border-left: 10px solid #8E7341; margin-top: 30px; border-radius: 4px; }
         .year-prediction.next-year .advice-box { background: #FDF2F2; border-left-color: #A62C2B; }
-        .advice-box b { color: #8E7341; display: block; margin-bottom: 15px; font-size: 22px; }
-        .year-prediction.next-year .advice-box b { color: #A62C2B; }
+        .advice-box b { color: #8E7341; display: block; margin-bottom: 12px; font-size: 18px; }
         
-        .footer-msg { padding: 50px; background-color: #FDF2F2; border: 2px solid #F2DEDE; border-radius: 24px; text-align: center; line-height: 2.2; margin-top: 60px; }
-        .footer-msg b { color: #A62C2B; font-size: 26px; letter-spacing: 6px; display: block; margin-bottom: 15px; }
+        .footer-msg { padding: 40px; background-color: #FDF2F2; border: 2px solid #F2DEDE; border-radius: 20px; text-align: center; line-height: 2.2; margin-top: 50px; }
+        .footer-msg b { color: #A62C2B; font-size: 22px; letter-spacing: 5px; display: block; margin-bottom: 12px; }
         
         @media (max-width: 992px) {
             .header { flex-direction: column; text-align: center; gap: 20px; }
-            .header img { width: 180px; }
-            .header h1 { font-size: 42px; letter-spacing: 10px; }
+            .header img { width: 150px; }
+            .header-text { text-align: center; }
+            .header h1 { font-size: 36px; letter-spacing: 8px; }
             .chart-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
-            .center-palace { grid-column: span 2; grid-row: auto; order: -1; min-height: 160px; margin-bottom: 20px; font-size: 42px; }
+            .center-palace { grid-column: span 2; grid-row: auto; order: -1; min-height: 120px; margin-bottom: 20px; font-size: 32px; }
         }
     </style>
 </head>
@@ -198,11 +199,7 @@
     </div>
 
     <script>
-        const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-        const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-        const LUNAR_DATA = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d260, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150, 0x0f252, 0x0d520];
-        const SI_HUA_DATA = {"甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌", "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌", "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌", "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌", "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"};
-
+        // --- 完整解釋庫 (不精簡版本) ---
         const STAR_DB = {
             "紫微": { 
                 "intro": "紫微星為北斗之主，至尊之星。主掌地位、權力、尊榮與自我管理。其性格特質通常表現為高傲、自尊心極強，具有極佳的資源整合力與天生的領袖風範，如同古代帝王般追求卓越，不甘人後。", 
@@ -253,7 +250,7 @@
                 "annual": "【機遇挑戰年】今年才華將在主流場合大放異彩，但也伴隨各種隱形的口舌是非。只要行事守法、態度謙遜低調，利用流年四化的能量化解干擾，必能將挑戰轉化為重大的成就轉機。" 
             },
             "天府": { 
-                "intro": "天府星為南斗主星，財庫之司。主守成、穩健、包容與資源整合。性格沉穩可靠，具備天生的管理長才與深厚的守護意識，是穩定的核心。", 
+                "intro": "天府星為南斗主星，財庫之司。主掌守成、穩健、包容與資源整合。性格沉穩可靠，具備天生的管理長才與深厚的守護意識，是穩定的核心。", 
                 "career": "適合高端行政管理、金融銀行、大型房產開發或穩健型跨國企業。處事周全細緻，深得團隊部屬信賴，具備極佳的大局觀與資源分配能力。由於性格趨向於安全第一，有時會顯得墨守成規，應適時學習新技術與新觀念。您在職場上是最好的行政支柱，適合處理需要極大耐心的長線穩定專案。", 
                 "wealth": "財運穩定且具備強大的持續積累能力，是典型的『財庫星』。擅長規律儲蓄、不動產購置與低風險保值型投資。理財風格保守求穩，生活品質要求高雅但不奢靡。財富呈現穩定的階梯式上升。您具備『存錢』的天性，但師父建議應適度投資於人際網路與自我成長，讓資產流動起來。", 
                 "social": "寬厚慈祥，社交圈層次分明且極其穩定。在關係中扮演守護者與引導者的角色，是他人依賴的避風港。擇偶重視社會地位的對等、性格穩定性與家庭觀。情緣通常穩定且長久。社交場合中具備天然的威嚴與說服力。情緣多來自長輩介紹或穩定的職場環境。", 
@@ -293,10 +290,10 @@
                 "annual": "【和諧運作年】今年極其有利於簽署重要商業契約、達成人生重大人際協議或進行調停。誠信是您今年的核心資產，凡事依循既有規矩與法律行事，不僅能穩定獲利，還能贏得長遠的商業商譽。" 
             },
             "天梁": { 
-                "intro": "天梁星為南斗長壽之星，蔭庇之神。主掌慈悲、化解、長者風範與孤高。性格成熟穩重，具備將危難化為轉機的奇蹟能量，是化難之星。", 
+                "intro": "天梁星為南斗長壽之星，蔭庇之神。主慈悲、化解、長者風範與孤高。性格成熟穩重，具備將危難化為轉機的奇蹟能量，是化難之星。", 
                 "career": "適合教育研發、醫療護理、公益慈善、法律審核或任何帶有『解決大麻煩』特質的諮詢工作。你是團隊中的定海神針，具有極高公信力。適合在非營利組織或政府監管單位發展。要注意有時過於好為人師而顯得與年輕輩隔閡。能靠長期建立的聲譽與專業權威獲利。", 
                 "wealth": "財運帶有顯著的『後福』與『長輩提攜』特質。錢財多來自長輩贈與、祖產傳承、保險賠償或長年深耕專業後的技術紅利。理財心態極度保守安全。對金錢態度相對淡泊，但這份淡泊反而常吸引穩定的財源注入。建議配置保本型資產或ESG永續投資標的。", 
-                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、孝順且性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。", 
+                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、孝順且性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。", 
                 "health": "主掌消化系統、骨骼系統與整體免疫力。雖主長壽，但容易患有慢性關節炎症、脾胃虛寒或骨質疏鬆。建議增加適度的骨質鍛鍊（如快走），並重視溫補藥膳的節氣調理。保養重點在於脊椎關節的定期伸展與保護，不宜維持同一姿勢過久。", 
                 "annual": "【逢凶化吉年】若遇阻礙切莫驚慌自亂陣腳，貴人必會在最關鍵時刻現身相助。今年適合修補破碎的人際關係、進行高端健康檢查或學習玄學智慧。這一年『轉化』能量極強，能徹底解決困擾多年的難題。" 
             },
@@ -318,15 +315,33 @@
             }
         };
 
-        // 新增雙星聯動分析資料庫
         const LINKAGE_DB = {
-            "紫微天府": "【紫府同宮格】兩大主星同坐，格局宏大，具備極強的包容力與穩定權力。這種組合的人性格極度穩重，做事滴水不漏，但也容易因為過於求全而顯得決斷較慢。",
-            "太陽巨門": "【巨日同臨格】太陽的光芒驅散了巨門的陰暗與猜疑，此命格利於在異國或異鄉發展，且具備極佳的跨國外交與國際貿易天賦。口才與名聲並重，能靠才華贏得權威地位。",
-            "武曲貪狼": "【武貪同行格】屬於典型的『大器晚成』組合。職涯早期多磨難，但在三十五歲後能量爆發，偏財運與實業爆發力極強。性格果敢且具備商務手腕。",
-            "天機太陰": "【機月同臨格】思維極其縝密，具備極強的企劃與行政天賦。性格溫柔內斂，在穩定的大型體系中能發揮如魚得水的執行力，適合幕僚或精密策劃職務。",
-            "廉貞天相": "【廉相守命格】兼具法規的正義感與細膩的公關手腕。此格的人在外在形象上非常有質感，能在混亂的體制中建立新的標準與秩序，利於在法律或高端品牌領域深耕。",
-            "紫微貪狼": "【桃花犯主格】雖然在人際關係與異性緣上極度旺盛，但需注意慾望的節制。若能將感性能量轉化為藝術創作或商務公關，這將是極具魅力的商業命格。"
+            "紫微天府": "【紫府同宮格】兩大主星同坐,格局宏大。此命格之人極度穩重,做事滴水不漏。在現代商業環境中具備無與倫比的經營天賦,能白手起家並守住基業。",
+            "太陽巨門": "【巨日同臨格】太陽的光芒驅散了巨門的猜疑。利於在異鄉發展,具備跨國外交與國貿天賦。名聲與地位並重,只要保持正直,中晚年必然權威顯赫。",
+            "武曲貪狼": "【武貪同行格】大器晚成之格。早年多歷練磨難,三十五歲後財運爆發。兼具軍警勇武與商業機敏,是典型的實幹型商業領袖。",
+            "天機太陰": "【機月同臨格】思維極其縝密,具企劃與行政天賦。在大型機構中擔任決策幕僚能發揮最大光芒。性格溫厚,一生穩定平安,利於文書與研究。",
+            "廉貞天相": "【廉相守命格】兼具法規正義感與細膩公關手腕。外在形象極佳,能在混亂中建立新秩序,適合高端品牌、法律或行政管理領域。",
+            "紫微貪狼": "【桃花犯主格】具備極佳藝術感與社交魅力。若能專注於事業,這將是極強的跨界公關命格。需注意慾望控制,將感性能量轉向創意產出。"
         };
+
+        // --- 排盤核心邏輯 (精準判斷版) ---
+        const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+
+        function initDaysLogic() {
+            const daySelect = document.getElementById('day');
+            const month = parseInt(document.getElementById('month').value);
+            const year = parseInt(document.getElementById('year').value);
+            const daysInMonth = new Date(year, month, 0).getDate();
+            daySelect.innerHTML = '';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const option = document.createElement('option');
+                option.value = i; option.textContent = i + '日';
+                daySelect.appendChild(option);
+            }
+        }
+        document.getElementById('month').addEventListener('change', initDaysLogic);
+        document.getElementById('year').addEventListener('change', initDaysLogic);
 
         function solarToLunar(y, m, d) {
             const baseDate = new Date(1900, 0, 31);
@@ -370,8 +385,7 @@
                     const currPos = (2 + i) % 12;
                     palaces[currPos].stem = STEMS[(startStemIdx + i) % 10];
                 }
-                const lifePalace = palaces[lifePos];
-                const phase = this.getPhase(lifePalace.stem, lifePalace.branch);
+                const phase = this.getPhase(palaces[lifePos].stem, palaces[lifePos].branch);
                 const ziweiPos = this.getZiweiPos(ld, phase);
                 this.setMainStars(palaces, ziweiPos);
                 palaces[(4 + hourIdx) % 12].sec_stars.push("文曲");
@@ -434,13 +448,12 @@
             const [ly, lm, ld] = lDate;
             const birthStem = STEMS[(ly - 4) % 10];
             const thisYear = new Date().getFullYear();
-            const nextYear = thisYear + 1;
             const stemThis = STEMS[(thisYear - 4) % 10];
             const branchThis = BRANCHES[(thisYear - 4) % 12];
+            const nextYear = thisYear + 1;
             const stemNext = STEMS[(nextYear - 4) % 10];
             const branchNext = BRANCHES[(nextYear - 4) % 12];
 
-            // 判別命主星與聯動關係
             const lifePalace = palaces[lifePos];
             let starsToAnalyze = [];
             let isBorrowed = false;
@@ -451,33 +464,53 @@
                 starsToAnalyze = palaces[migrationIdx].main_stars;
                 isBorrowed = true;
             }
-            if (starsToAnalyze.length === 0) starsToAnalyze = ["紫微"]; // 保底處理
+            if (starsToAnalyze.length === 0) starsToAnalyze = ["紫微"];
 
-            // 偵測聯動格局
             let linkageText = "";
-            const starStr = starsToAnalyze.sort().join('');
-            for (let key in LINKAGE_DB) {
-                if (starStr.includes(key[0]) && starStr.includes(key[1])) {
-                    linkageText = `<div class="info-box" style="border-color:#A62C2B; background:#FFF0F0;"><b style="color:#A62C2B; font-size:24px;">🔮 特別格局聯動分析：</b><p style="margin-top:10px;">${LINKAGE_DB[key]}</p></div>`;
+            const sortedStars = [...starsToAnalyze].sort();
+            for (let combo in LINKAGE_DB) {
+                let foundAll = true;
+                for (let char of combo) {
+                    if (!sortedStars.join('').includes(char)) { foundAll = false; break; }
+                }
+                if (foundAll) {
+                    linkageText = `<div class="info-box" style="border-color:#A62C2B; background:#FFF0F0;"><b style="color:#A62C2B; font-size:24px;">🔮 個人專屬格局聯動合參：</b><p style="margin-top:10px;">${LINKAGE_DB[combo]}</p></div>`;
                     break;
                 }
             }
 
-            let comboIntro = "", comboCareer = "", comboWealth = "", comboSocial = "", comboHealth = "", comboAnnual = "";
+            let fullAnalysisHtml = "";
+            let comboIntro = "";
+            let comboAnnual = "";
+
             starsToAnalyze.forEach(s => {
                 const info = STAR_DB[s];
-                comboIntro += (comboIntro ? "與" : "") + info.intro;
-                comboCareer += `<div class="analysis-item"><b>💼 【${s}】之事業潛力與職業適配：</b><p>${info.career}</p></div>`;
-                comboWealth += `<div class="analysis-item"><b>💰 【${s}】之財富機緣與理財風格：</b><p>${info.wealth}</p></div>`;
-                comboSocial += `<div class="analysis-item"><b>🤝 【${s}】之人際交際與情緣特質：</b><p>${info.social}</p></div>`;
-                comboHealth += `<div class="analysis-item"><b>🛡️ 【${s}】之健康提醒與生活調養：</b><p>${info.health}</p></div>`;
-                comboAnnual += `<li><b>【${s}星年度預測】：</b>${info.annual}</li>`;
+                comboIntro += (comboIntro ? " 與 " : "") + info.intro;
+                fullAnalysisHtml += `
+                    <div class="analysis-item">
+                        <b>💼 【${s}星】事業潛力與職業適配深度分析：</b>
+                        <p>${info.career}</p>
+                    </div>
+                    <div class="analysis-item">
+                        <b>💰 【${s}星】財富機緣與理財風格深度分析：</b>
+                        <p>${info.wealth}</p>
+                    </div>
+                    <div class="analysis-item">
+                        <b>🤝 【${s}星】人際交際與情緣特質深度分析：</b>
+                        <p>${info.social}</p>
+                    </div>
+                    <div class="analysis-item">
+                        <b>🛡️ 【${s}星】健康提醒與生活調養深度建議：</b>
+                        <p>${info.health}</p>
+                    </div>
+                `;
+                comboAnnual += `<li>【${s}星】${info.annual}</li>`;
             });
 
             const html = `
                 <div class="analysis-header">
                     <h2>田 禾 宮 ・ 專 業 命 理 詳 批</h2>
-                    <p>自動年度動態分析 (偵測年份：${thisYear}-${nextYear})</p>
+                    <p>年度動態核心分析報告 (偵測年份：${thisYear}-${nextYear})</p>
                 </div>
                 <div class="info-box">
                     <table>
@@ -487,7 +520,7 @@
                         </tr>
                         <tr>
                             <td><b>農曆生辰：</b> ${ly}(${birthStem})年${lm}月${ld}日</td>
-                            <td><b>流年運勢：</b> ${thisYear}為${stemThis}${branchThis}年，當前能量磁場極強</td>
+                            <td><b>流年運勢：</b> ${thisYear}為${stemThis}${branchThis}年</td>
                         </tr>
                     </table>
                 </div>
@@ -498,60 +531,41 @@
                     <div class="section-title">【本命格局詳盡深度解析】</div>
                     <div class="section-content">
                         <p class="quote">「${comboIntro}」</p>
-                        ${comboCareer}
-                        ${comboWealth}
-                        ${comboSocial}
-                        ${comboHealth}
+                        ${fullAnalysisHtml}
                     </div>
                 </div>
 
                 <div class="year-prediction">
-                    <div class="year-header">今年運勢展望：西元 ${thisYear} (${stemThis}${branchThis}) 年</div>
+                    <div class="year-header">今年展望：西元 ${thisYear} (${stemThis}${branchThis}) 年</div>
                     <div class="year-content">
                         <div style="text-align: center;"><span class="si-hua-tag">流年四化：${SI_HUA_DATA[stemThis]}</span></div>
                         <p><b>【本年度整體環境影響】</b><br><ul style="padding-left:20px; margin-top:15px; line-height:2;">${comboAnnual}</ul></p>
                         <div class="advice-box">
                             <b>🔮 師父指引：</b>
-                            <p>本年度受「${SI_HUA_DATA[stemThis].split('、').pop()}」能量牽引，針對「${starsToAnalyze.join('、')}」星組合，切記「穩中求進」與「內省自律」兩大原則。面對重大抉擇應先沉澱情緒再決定，方能轉禍為祥。保持內心的正直與光明是今年的必修課。</p>
+                            <p>本年度受「${SI_HUA_DATA[stemThis].split('、').pop()}」能量引動,切記「穩中求進」。針對您的命盤結構,應先沉澱情緒再決定重大事項。保持光明正直之心是改命捷徑。</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="year-prediction next-year">
-                    <div class="year-header">明年運勢展望：西元 ${nextYear} (${stemNext}${branchNext}) 年</div>
+                    <div class="year-header">明年展望：西元 ${nextYear} (${stemNext}${branchNext}) 年</div>
                     <div class="year-content">
                         <div style="text-align: center;"><span class="si-hua-tag">預計流年四化：${SI_HUA_DATA[stemNext]}</span></div>
-                        <p>進入 ${nextYear} 年後，能量場將受「${SI_HUA_DATA[stemNext]}」引動。對於您而言，明年將進入一個「收斂與重整」的階段。相對於今年的開拓與發散，明年更利於「暗財積累」與「專業技術深耕」，是厚積薄發的關鍵年份。</p>
+                        <p>進入 ${nextYear} 年後,環境能量場受「${SI_HUA_DATA[stemNext]}」引動。明年對您而言是「厚積薄發」的一年,利於暗財積累與技術深耕。</p>
                         <div class="advice-box">
                             <b>🔮 師父叮嚀：</b>
-                            <p>受「${SI_HUA_DATA[stemNext].split('、').pop()}」影響，明年口舌是非與文書瑕疵將顯著增加。應多用智慧與耐性去化解紛擾，不宜進行激進擴張或投機冒險。凡事預則立，不預則廢。</p>
+                            <p>受「${SI_HUA_DATA[stemNext].split('、').pop()}」影響,明年口舌是非顯著增加。應以智慧化解紛擾,不宜激進擴張或投機。凡事預則立,不預則廢。</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="footer-msg">
                     <b>師 父 寄 語</b>
-                    <p>「紫微星盤為人生之地圖，年份流轉吉凶生。行善積德，是改命的最佳捷徑。」</p>
+                    <p>「紫微星盤為人生之地圖,年份流轉吉凶生。行善積德,是改命的最佳捷徑。」</p>
                 </div>
             `;
             document.getElementById('analysisContent').innerHTML = html;
         }
-
-        function initDaysLogic() {
-            const daySelect = document.getElementById('day');
-            const month = parseInt(document.getElementById('month').value);
-            const year = parseInt(document.getElementById('year').value);
-            const daysInMonth = new Date(year, month, 0).getDate();
-            daySelect.innerHTML = '';
-            for (let i = 1; i <= daysInMonth; i++) {
-                const option = document.createElement('option');
-                option.value = i; option.textContent = i + '日';
-                daySelect.appendChild(option);
-            }
-        }
-
-        document.getElementById('month').addEventListener('change', initDaysLogic);
-        document.getElementById('year').addEventListener('change', initDaysLogic);
 
         function runAnalysis() {
             const name = document.getElementById('name').value || "緣主";
@@ -559,17 +573,17 @@
             const month = parseInt(document.getElementById('month').value);
             const day = parseInt(document.getElementById('day').value);
             const hourIdx = parseInt(document.getElementById('hour').value);
-            if (!year || year < 1900 || year > 2100) { alert("請輸入有效的出生年份"); return; }
+            if (!year || year < 1900 || year > 2100) { alert("請輸入出生年份"); return; }
             const lDate = solarToLunar(year, month, day);
             const engine = new ZiWeiEngine();
-            const { palaces, phase, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
+            const { palaces, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
             renderChart(palaces);
             renderAnalysis(name, lDate, palaces, lifePos);
             document.getElementById('result').classList.add('active');
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
-
         initDaysLogic();
+        const LUNAR_DATA = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d260, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150, 0x0f252, 0x0d520];
     </script>
 </body>
 </html>
