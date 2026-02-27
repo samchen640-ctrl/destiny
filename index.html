@@ -8,10 +8,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; }
         
-        /* 加大容器以容納更大的圖形 */
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         
-        /* 標題區塊：圖片顯著加大並置於左方 */
+        /* 標題區塊：吉祥物圖片 240px 置於左方 */
         .header { 
             margin-bottom: 30px; 
             padding: 50px 30px; 
@@ -22,10 +21,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px; /* 增加間距以適應更大的圖片 */
+            gap: 50px; 
         }
         .header img { 
-            width: 240px; /* 吉祥物圖片進一步加大 */
+            width: 240px; 
             height: auto; 
             border-radius: 25px;
             border: 5px solid #F5E6BE;
@@ -33,9 +32,6 @@
             padding: 8px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
-        }
-        .header img:hover {
-            transform: scale(1.05);
         }
         .header-text { text-align: left; }
         .header h1 { font-size: 56px; letter-spacing: 15px; margin-bottom: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
@@ -48,50 +44,33 @@
         .form-group { display: flex; flex-direction: column; }
         .form-group label { font-weight: bold; margin-bottom: 10px; color: #555; }
         .form-group input, .form-group select { padding: 14px; border: 1px solid #D1C4B2; border-radius: 8px; font-size: 16px; background: #FFF; transition: all 0.3s; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: #A62C2B; box-shadow: 0 0 0 3px rgba(166, 44, 43, 0.1); }
         
-        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 22px; padding: 20px 40px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 3px; }
+        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 24px; padding: 22px 40px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 4px; }
         .btn-calculate:hover { background-color: #C13F3E; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(166, 44, 43, 0.3); }
         
         .result-section { display: none; }
         .result-section.active { display: block; animation: fadeIn 0.8s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* 命盤圖形整體加大 */
         .chart-container { background: #F4EBE2; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); }
+        .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 15px; max-width: 1050px; margin: 0 auto; }
         
-        /* 命盤區域顯著加大 */
-        .chart-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            grid-template-rows: repeat(4, 1fr); 
-            gap: 15px; 
-            max-width: 1050px; 
-            margin: 0 auto; 
-        }
-        
-        .palace { 
-            background: #FFF8F2; 
-            border: 2px solid #A62C2B; 
-            border-radius: 12px; 
-            padding: 20px; 
-            min-height: 230px; 
-            position: relative; 
-            transition: all 0.3s; 
-        }
+        .palace { background: #FFF8F2; border: 2px solid #A62C2B; border-radius: 12px; padding: 20px; min-height: 230px; position: relative; transition: all 0.3s; }
         .palace:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 30px rgba(166, 44, 43, 0.2); border-color: #C13F3E; }
         .palace.life-palace { background: #FFF0F0; border-width: 4px; border-color: #A62C2B; }
         
-        .palace-name { text-align: center; font-weight: bold; font-size: 24px; color: #A62C2B; margin-bottom: 15px; border-bottom: 2px solid #E0D5C1; padding-bottom: 10px; }
+        .palace-name { text-align: center; font-weight: bold; font-size: 26px; color: #A62C2B; margin-bottom: 15px; border-bottom: 2px solid #E0D5C1; padding-bottom: 10px; }
         
-        .main-stars { font-size: 18px; color: #A62C2B; line-height: 1.8; font-weight: bold; }
-        .main-stars span { display: inline-block; margin: 3px 6px; border-bottom: 2px solid rgba(166, 44, 43, 0.2); }
+        .main-stars { font-size: 20px; color: #A62C2B; line-height: 1.8; font-weight: bold; }
+        .main-stars span { display: inline-block; margin: 3px 8px; border-bottom: 2px solid rgba(166, 44, 43, 0.2); }
         
-        .sec-stars { font-size: 14px; color: #666; position: absolute; top: 65px; right: 15px; text-align: right; }
+        .sec-stars { font-size: 14px; color: #666; position: absolute; top: 75px; right: 15px; text-align: right; }
         
-        .stem-branch { position: absolute; bottom: 15px; right: 15px; font-size: 18px; font-weight: bold; color: #8E7341; }
-        .age-range { position: absolute; bottom: 15px; left: 15px; font-size: 14px; color: #777; font-family: Consolas, monospace; }
+        .stem-branch { position: absolute; bottom: 15px; right: 15px; font-size: 20px; font-weight: bold; color: #8E7341; }
+        .age-range { position: absolute; bottom: 15px; left: 15px; font-size: 16px; color: #777; font-family: Consolas, monospace; }
         
-        /* 中央方塊深度放大 */
+        /* 中央方塊 2x2 置中加大 */
         .center-palace { 
             background: white; 
             border: 6px double #A62C2B; 
@@ -102,58 +81,58 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            font-size: 56px; 
+            font-size: 64px; 
             color: #A62C2B; 
             font-weight: bold; 
             grid-column: span 2; 
             grid-row: span 2; 
             box-shadow: inset 0 0 35px rgba(166, 44, 43, 0.12);
-            letter-spacing: 20px;
-            line-height: 1.7;
+            letter-spacing: 25px;
+            line-height: 1.8;
         }
         
+        /* 分析報告區塊 */
         .analysis-content { background: #FFFEFA; padding: 60px; border-radius: 24px; border: 1px solid #E0D5C1; max-width: 1050px; margin: 0 auto; box-shadow: 0 15px 50px rgba(0,0,0,0.05); }
         .analysis-header { text-align: center; margin-bottom: 50px; border-bottom: 5px solid #A62C2B; padding-bottom: 30px; }
         .analysis-header h2 { color: #A62C2B; font-size: 38px; letter-spacing: 8px; margin-bottom: 15px; }
-        .analysis-header p { color: #8E7341; font-size: 18px; letter-spacing: 5px; }
+        .analysis-header p { color: #8E7341; font-size: 20px; letter-spacing: 5px; }
         
         .info-box { background-color: #FDFBEE; padding: 40px; border-radius: 15px; border: 1.5px solid #D4AF37; margin-bottom: 50px; }
-        .info-box table { width: 100%; font-size: 20px; border-collapse: collapse; }
+        .info-box table { width: 100%; font-size: 22px; border-collapse: collapse; }
         .info-box td { padding: 15px; }
-        .info-box .highlight { color: #A62C2B; font-weight: bold; font-size: 1.2em; }
+        .info-box .highlight { color: #A62C2B; font-weight: bold; font-size: 1.1em; }
         
-        .section-title { color: #FFF; background: #A62C2B; padding: 20px 30px; border-radius: 12px 12px 0 0; margin-bottom: 0; font-size: 22px; letter-spacing: 3px; }
-        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 45px; border-radius: 0 0 12px 12px; line-height: 2.2; font-size: 17px; margin-bottom: 50px; }
+        .section-title { color: #FFF; background: #A62C2B; padding: 22px 30px; border-radius: 12px 12px 0 0; margin-bottom: 0; font-size: 24px; letter-spacing: 4px; }
+        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 45px; border-radius: 0 0 12px 12px; line-height: 2.2; font-size: 18px; margin-bottom: 50px; }
         
-        .quote { color: #7B5E26; font-style: italic; border-bottom: 3px solid #FDFBEE; padding-bottom: 25px; margin-bottom: 40px; font-size: 20px; line-height: 1.8; text-align: center; }
+        .quote { color: #7B5E26; font-style: italic; border-bottom: 3px solid #FDFBEE; padding-bottom: 25px; margin-bottom: 40px; font-size: 22px; line-height: 1.8; text-align: center; }
         
-        .analysis-item { margin-bottom: 40px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 25px; }
+        .analysis-item { margin-bottom: 45px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 30px; }
         .analysis-item:last-child { border-bottom: none; }
-        .analysis-item b { color: #A62C2B; font-size: 21px; display: block; margin-bottom: 15px; border-left: 6px solid #A62C2B; padding-left: 15px; }
+        .analysis-item b { color: #A62C2B; font-size: 22px; display: block; margin-bottom: 18px; border-left: 8px solid #A62C2B; padding-left: 18px; }
+        .analysis-item p { margin-bottom: 15px; }
         
-        .year-prediction { margin-bottom: 50px; border: 2px solid #8E7341; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(142, 115, 65, 0.1); }
+        .year-prediction { margin-bottom: 60px; border: 3px solid #8E7341; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(142, 115, 65, 0.1); }
         .year-prediction.next-year { border-color: #A62C2B; box-shadow: 0 10px 30px rgba(166, 44, 43, 0.1); }
-        .year-header { background: #8E7341; color: #FFF; padding: 25px; text-align: center; font-weight: bold; font-size: 22px; letter-spacing: 3px; }
+        .year-header { background: #8E7341; color: #FFF; padding: 30px; text-align: center; font-weight: bold; font-size: 24px; letter-spacing: 4px; }
         .year-prediction.next-year .year-header { background: #A62C2B; }
+        .year-content { padding: 50px; background: #FFFEFA; }
         
-        .year-content { padding: 45px; background: #FFFEFA; }
-        
-        .si-hua-tag { display: inline-block; background: #F2DEDE; color: #A62C2B; padding: 12px 35px; border-radius: 45px; font-weight: bold; font-size: 18px; margin-bottom: 30px; border: 1px solid #EBCCD1; }
+        .si-hua-tag { display: inline-block; background: #F2DEDE; color: #A62C2B; padding: 15px 40px; border-radius: 50px; font-weight: bold; font-size: 20px; margin-bottom: 35px; border: 1px solid #EBCCD1; }
         .year-prediction.next-year .si-hua-tag { background: #FDFBEE; color: #8E7341; border: 1px solid #D4AF37; }
         
-        .advice-box { background: #F9F5EF; padding: 30px; border-left: 10px solid #8E7341; margin-top: 30px; border-radius: 4px; }
+        .advice-box { background: #F9F5EF; padding: 35px; border-left: 12px solid #8E7341; margin-top: 35px; border-radius: 4px; }
         .year-prediction.next-year .advice-box { background: #FDF2F2; border-left-color: #A62C2B; }
-        .advice-box b { color: #8E7341; display: block; margin-bottom: 12px; font-size: 20px; }
+        .advice-box b { color: #8E7341; display: block; margin-bottom: 15px; font-size: 22px; }
         .year-prediction.next-year .advice-box b { color: #A62C2B; }
         
-        .footer-msg { padding: 45px; background-color: #FDF2F2; border: 2px solid #F2DEDE; border-radius: 20px; text-align: center; line-height: 2.2; margin-top: 50px; }
-        .footer-msg b { color: #A62C2B; font-size: 24px; letter-spacing: 5px; display: block; margin-bottom: 12px; }
+        .footer-msg { padding: 50px; background-color: #FDF2F2; border: 2px solid #F2DEDE; border-radius: 24px; text-align: center; line-height: 2.2; margin-top: 60px; }
+        .footer-msg b { color: #A62C2B; font-size: 26px; letter-spacing: 6px; display: block; margin-bottom: 15px; }
         
         @media (max-width: 992px) {
             .header { flex-direction: column; text-align: center; gap: 20px; }
             .header img { width: 180px; }
-            .header-text { text-align: center; }
-            .header h1 { font-size: 38px; letter-spacing: 8px; }
+            .header h1 { font-size: 42px; letter-spacing: 10px; }
             .chart-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
             .center-palace { grid-column: span 2; grid-row: auto; order: -1; min-height: 160px; margin-bottom: 20px; font-size: 42px; }
         }
@@ -162,11 +141,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 標題左方吉祥物圖片：寬度加大至 240px -->
-            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg" onerror="this.style.display='none'">
+            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg" onerror="this.alt='田禾宮圖示'">
             <div class="header-text">
                 <h1>田 禾 宮</h1>
-                <p>專業紫微命盤排版系統 (大師詳批版)</p>
+                <p>專業紫微命盤排版系統 (大師深度詳批版)</p>
             </div>
         </div>
         
@@ -179,7 +157,7 @@
                 </div>
                 <div class="form-group">
                     <label>出生年份 (西元)</label>
-                    <input type="number" id="year" min="1900" max="2100" value="1981">
+                    <input type="number" id="year" min="1900" max="2100" value="1983">
                 </div>
                 <div class="form-group">
                     <label>月份</label>
@@ -187,7 +165,7 @@
                         <option value="1">1月</option><option value="2">2月</option>
                         <option value="3">3月</option><option value="4">4月</option>
                         <option value="5">5月</option><option value="6">6月</option>
-                        <option value="7">7月</option><option value="8">8月</option>
+                        <option value="7">7月</option><option value="8" selected>8月</option>
                         <option value="9">9月</option><option value="10">10月</option>
                         <option value="11">11月</option><option value="12">12月</option>
                     </select>
@@ -201,14 +179,14 @@
                     <select id="hour">
                         <option value="0">子 (23-01)</option><option value="1">丑 (01-03)</option>
                         <option value="2">寅 (03-05)</option><option value="3">卯 (05-07)</option>
-                        <option value="4">辰 (07-09)</option><option value="5">巳 (09-11)</option>
+                        <option value="4">辰 (07-09)</option><option value="5" selected>巳 (09-11)</option>
                         <option value="6">午 (11-13)</option><option value="7">未 (13-15)</option>
                         <option value="8">申 (15-17)</option><option value="9">酉 (17-19)</option>
                         <option value="10">戌 (19-21)</option><option value="11">亥 (21-23)</option>
                     </select>
                 </div>
             </div>
-            <button class="btn-calculate" onclick="runAnalysis()">開啟天機・獲取雙年度深度解析</button>
+            <button class="btn-calculate" onclick="runAnalysis()">開啟天機・獲取個人專屬深度解析</button>
         </div>
         
         <div class="result-section" id="result">
@@ -220,163 +198,135 @@
     </div>
 
     <script>
-        // --- 完整核心資料庫 ---
         const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
         const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-        const LUNAR_DATA = [
-            0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
-            0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
-            0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
-            0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
-            0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
-            0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
-            0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
-            0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0,
-            0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63, 0x09370,
-            0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0, 0x0a2e0, 0x0d2e3,
-            0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4, 0x052d0, 0x0a9b8,
-            0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0, 0x0b273, 0x06930,
-            0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d260, 0x0e968, 0x0d520,
-            0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150, 0x0f252, 0x0d520
-        ];
-        const SI_HUA_DATA = {
-            "甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌",
-            "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌",
-            "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌",
-            "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌",
-            "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"
-        };
+        const LUNAR_DATA = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d260, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150, 0x0f252, 0x0d520];
+        const SI_HUA_DATA = {"甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌", "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌", "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌", "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌", "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"};
 
         const STAR_DB = {
-            "紫微": {
+            "紫微": { 
                 "intro": "紫微星為北斗之主，至尊之星。主掌地位、權力、尊榮與自我管理。其性格特質通常表現為高傲、自尊心極強，具有極佳的資源整合力與天生的領袖風範，如同古代帝王般追求卓越，不甘人後。", 
                 "career": "在事業上，您具備天生的開拓與管理潛能，極其適合擔任大型組織的核心決策者、創業者或高端諮詢顧問。在需要處理複雜人際協調、宏觀戰略佈局的崗位上，您能發揮出最大的光芒。雖然才華出眾，但要注意避免獨斷獨行，應學會廣納雅言以補不足。您的職業生涯多與『標準建立』掛鉤，適合在有規模的企業或官方機構中逐級而上。", 
-                "wealth": "財運主貴，錢財多隨社會地位與名譽的提升時自然而來。您擅長進行資產的大格局配置，理財風格穩重且帶有強烈的品牌意識。需特別注意因好面子或追求高端社交排場所產生的不必要開支。師父建議將資金投入具有長期增值價值的固定資產或高端保值品中。由於對小額盈虧較不在意，建議建立系統化的財務記帳習慣。", 
-                "social": "社交圈層次極高，身邊多為社會菁英或各領域的高層人士。在友誼中通常扮演保護者與引導者的角色。異性緣佳，容易吸引那些對強勢、智慧對象有天然崇拜感的人。情緣發展多趨於穩定，擇偶對象極其重視門當戶對與對方的社會評價。在感情中較為強勢，需給予伴侶足夠的尊重與彈性空間。",
-                "health": "主掌脾胃與心腦血管系統。因長期處於高壓決策狀態與對完美的偏執追求，應防範中風、高血壓或長期神經緊繃導致的消化系統功能失調。建議培養如靜坐、遠足、冥想等放鬆神經的長期愛好。日常飲食應以清淡為主，維持血液品質的健康與流動性。",
-                "annual_impact": "【地位鞏固年】今年是展現您領袖特質的最佳時機，極其有利於職位的實質躍遷與名聲的遠播。即便遇到環境阻礙，只要堅守誠信原則並結合團隊力量，最終必能迎刃而解。"
+                "wealth": "財運主貴，錢財多隨社會地位與名譽的提升而自然而來。您擅長進行資產的大格局配置，理財風格穩重且帶有強烈的品牌意識。需特別注意因好面子或追求高端社交排場所產生的不必要開支。師父建議將資金投入具有長期增值價值的固定資產或高端保值品中。由於對小額盈虧較不在意，建議建立系統化的財務記帳習慣。", 
+                "social": "社交圈層次極高，身邊多為社會菁英或各領域的高層人士。在友誼中通常扮演保護者與引導者的角色。異性緣佳，容易吸引那些對強勢、智慧對象有天然崇拜感的人。情緣發展多趨於穩定，擇偶對象極其重視門當戶對與對方的社會評價。在感情中較為強勢，需給予伴侶足夠的尊重與彈性空間。", 
+                "health": "主掌脾胃與心腦血管系統。因長期處於高壓決策狀態與對完美的偏執追求，應防範中風、高血壓或長期神經緊繃導致的消化系統功能失調。建議培養如靜坐、遠足、冥想等放鬆神經的長期愛好。日常飲食應以清淡為主，維持血液品質的健康與流動性。", 
+                "annual": "【地位鞏固年】今年是展現您領袖特質的最佳時機，極其有利於職位的實質躍遷與名聲的遠播。即便遇到環境阻礙，只要堅守誠信原則並結合團隊力量，最終必能迎刃而解。" 
             },
-            "天機": {
+            "天機": { 
                 "intro": "天機星為南斗之首，智慧之星。主掌智慧、策劃、邏輯分析與快速變動。心性慈悲且思維極其敏捷，是智庫型的核心靈魂，擅長在動盪的環境中尋找秩序，具備極強的適應力與觀察力。", 
                 "career": "適合資訊科技、企劃研發、高端顧問或任何需要高度邏輯推理與創意發揮的專業領域。你不擅長枯燥且重複的體力勞動，更傾向於解決複雜的系統流程問題。由於心思多變且觀察力強，在職涯中應專注於深耕一門核心技術，避免因好奇心過廣而博而不精。在職場上因反應極快常得長官青睞與提攜。", 
-                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格庫敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優柔寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
-                "social": "觀察入微，能迅速捕捉他人情緒的細微變化，在朋友圈中是極佳的傾聽者與解惑軍師。異性緣帶有濃厚的文藝氣息與智慧色彩。情感世界極其細膩，但也容易因過於敏感而產生無謂的自我內耗。擇偶對象偏好能與自己在靈魂與精神領域產生對話與深度共鳴的人。",
-                "health": "主掌神經系統、肝膽機能。容易因大腦運作過度而患有焦慮、失眠或偏頭痛。建議建立嚴格的規律作息，並增加有助於緩解神經緊張的戶外活動，如登山或慢跑。應減少攝取咖啡因，重視肝臟的排毒功能，維持內分泌系統的平衡。",
-                "annual_impact": "【智慧轉型年】環境變動劇烈，需利用您天賦的敏捷思維應對挑戰。今年有利於證照取得、高端研發或跨領域合作。變動中藏有機遇，只要不被外界紛擾影響核心方向，會有顯著突破。"
+                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優柔寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
+                "social": "觀察入微，能迅速捕捉他人情緒的細微變化，在朋友圈中是極佳的傾聽者與解惑軍師。異性緣帶有濃厚的文藝氣息與智慧色彩。情感世界極其細膩，但也容易因過於敏感而產生無謂的自我內耗。擇偶對象偏好能與自己在靈魂與精神領域產生對話與深度共鳴的人。", 
+                "health": "主掌神經系統、肝膽機能。容易因大腦運作過度而患有焦慮、失眠或偏頭痛。建議建立嚴格的規律作息，並增加有助於緩解神經緊張的戶外活動，如登山或慢跑。應減少攝取咖啡因，重視肝臟的排毒功能，維持內分泌系統的平衡。", 
+                "annual": "【智慧轉型年】環境變動劇烈，需利用您天賦的敏捷思維應對挑戰。今年有利於證照取得、高端研發或跨領域合作。變動中藏有機遇，只要不被外界紛擾影響核心方向，會有顯著突破。" 
             },
-            "太陽": {
+            "太陽": { 
                 "intro": "太陽星為中天主星，光明之源。主掌奉獻、名聲、開拓力與官祿。性格正直坦蕩，具有極強的公眾服務熱誠與使命感，是天生的發光體。", 
                 "career": "適合教育傳播、公共法律、政治外交或任何需要高度曝光與公信力的產業。您適合在具備規模與社會責任感的機構發展。由於責任感極強且好勝心旺，往往會過度勞累，需注意工作與生活的動態平衡。您的領導風格屬於熱血帶動型，適合開拓新市場，為團隊指引方向。", 
                 "wealth": "財運具備開創性，不吝嗇與他人分享資源，錢財常隨社會地位與名譽而來。理財風格慷慨且極重信用。建議定期進行定額投資，將流動資金轉化為穩健的長期資產。您不適合經營需要斤斤計較的微利事業，大格局的運作更適合您的磁場。財富來自於公眾的認可。", 
-                "social": "交友極廣，常是團體中的靈魂人物。在感情中男性主動強勢且具保護慾，女性則顯得幹練但容易給伴侶壓迫感。擇偶傾向於性格正直、陽光且開朗的對象。情緣中需多學習柔性溝通與傾聽，方能長久穩定。您的熱情常會吸引那些缺乏安全感的異性，需注意社交距離。",
-                "health": "主掌心臟、眼睛、血壓與血液循環系統。體質偏熱，需防範心血管疾病、視力退化或因長期勞累導致的肝火上升。日常飲食應多補充清淡蔬果，並養成定期檢測血壓的習慣。建議遠離菸酒，維持呼吸道健康，並重視眼部的日常保健。",
-                "annual_impact": "【光芒四射年】過往的長期努力將被社會看見，有利於推廣個人品牌或爭取職務晉升。這一年『名聲』帶動『財富』，只要維持良好商譽，財富將在下半年穩定增長，是非常利於對外擴張的一年。"
+                "social": "交友極廣，常是團體中的靈魂人物。在感情中男性主動強勢且具保護慾，女性則顯得幹練但容易給伴侶壓迫感。擇偶傾向於性格正直、陽光且開朗的對象。情緣中需多學習柔性溝通與傾聽，方能長久穩定。您的熱情常會吸引那些缺乏安全感的異性，需注意社交距離。", 
+                "health": "主掌心臟、眼睛、血壓與血液循環系統。體質偏熱，需防範心血管疾病、視力退化或因長期勞累導致的肝火上升。日常飲食應多補充清淡蔬果，並養成定期檢測血壓的習慣。建議遠離菸酒，維持呼吸道健康，並重視眼部的日常保健。", 
+                "annual": "【光芒四射年】過往的長期努力將被社會看見，有利於推廣個人品牌或爭取職務晉升。這一年『名聲』帶動『財富』，只要維持良好商譽，財富將在下半年穩定增長，是非常利於對外擴張的一年。" 
             },
-            "武曲": {
+            "武曲": { 
                 "intro": "武曲星為北斗正財星。主掌決斷、實幹、剛毅與財富積累。其性格不尚空談，執行力冠絕群星，是典型的白手起家實幹家，具有極強的目標意識。", 
                 "career": "金融管理、軍警執法、製造工程或競技體育領域的佼佼者。處事雷厲風行，對目標有近乎執著的追求。適合在高度競爭、以數據與成效為導向的環境中生存。雖然不擅長花言巧語，但誠信與專業是你職涯中最強大的資產。在職場中屬於開疆闢土的高手，能承擔重任。", 
                 "wealth": "財星坐命，對金錢流向與獲利機會異常敏銳。擅長實體投資、資產積累與嚴謹的數字管理。理財風格務實求真，對高風險投機持極度謹慎態度。晚年財庫充盈，但在人際關係中不應計較過細，以免因小失大。正財運極佳，財富來自本業的長期耕耘與複利效應。", 
-                "social": "社交風格務實且極重承諾，不喜虛偽客套的聚會，朋友雖少但皆為患難之交。在情緣中顯得較為木訥或過於剛強，容易給伴侶冷漠或難以溝通的感覺。擇偶傾向同樣務實、能共同創業或持家的夥伴。需學習適度表達內心情緒與溫暖，方能維持家庭生活的美滿。",
-                "health": "主掌呼吸系統、肺部與大腸機能。體質偏燥，容易患有氣管發炎、皮膚過敏或因壓力導致的腸道問題。建議多從事慢跑、游泳等有氧運動，並注重日常的水分補充。保養重點在於維持排泄系統的順暢，應增加高纖維食物的攝取。",
-                "annual_impact": "【實質獲利年】今年是成果收割期，凡事以數據、合約與實效為準。只要避免與他人發生情緒性的意氣之爭，財務指標將有突破性增長，極利於優化資產配置與債務清理。"
+                "social": "社交風格務實且極重承諾，不喜虛偽客套的聚會，朋友雖少但皆為患難之交。在情緣中顯得較為木訥或過於剛強，容易給伴侶冷漠或難以溝通的感覺。擇偶傾向同樣務實、能共同創業或持家的夥伴。需學習適度表達內心情緒與溫暖，方能維持家庭生活的美滿。", 
+                "health": "主掌呼吸系統、肺部與大腸機能。體質偏燥，容易患有氣管發炎、皮膚過敏或因壓力導致的腸道問題。建議多從事慢跑、游泳等有氧運動，並注重日常的水分補充。保養重點在於維持排泄系統的順暢，應增加高纖維食物的攝取。", 
+                "annual": "【實質獲利年】今年是成果收割期，凡事以數據、合約與實效為準。只要避免與他人發生情緒性的意氣之爭，財務指標將有突破性增長，極利於優化資產配置與債務清理。" 
             },
-            "天同": {
+            "天同": { 
                 "intro": "天同星為南斗福德星。主掌溫和、知足、休閒、審美與內心和諧。性格樂觀開朗，具有極佳的人文素養與生活情趣，是幸運與福氣的代名詞。", 
                 "career": "適合藝術創意、服務業、人力資源、教育或高端公關。在充滿和諧氣氛、強調團隊合作的環境中能發揮最大潛能。不宜從事高壓競爭、冷血殺戮的商業環境。由於進取心相對隨緣，需要具備能力的長官或導師強力引導，方能取得顯著事業成就。您具備極佳的美化生活與溝通天賦。", 
                 "wealth": "財運平穩，一生常有不期而獲的貴人財或意外福報財。理財心態輕鬆知足，不強求暴力成長。需防範因過度追求生活享受或安逸心態，導致財務規劃停滯不前。建議透過自動化理財工具進行規律儲蓄，化零為整。您一生中容易獲得小確幸財運，大財則需依靠後天的勤勉與專注。", 
-                "social": "人際關係極佳，是社交圈中的潤滑劑與開心果。異性緣帶有強烈的浪漫與依賴色彩，容易吸引具備照顧、溫暖特質的對象。情緣豐富但也容易陷入情感糾纏不清的狀態，需學習建立清晰的拒絕邊界。擇偶宜選成熟穩重、能給予穩定未來承諾且包容力強的夥伴。",
-                "health": "主掌泌尿系統、排泄系統與內分泌平衡。因重視生活享受與美食，需防範體重超標、糖尿病或代謝問題導致的水腫與疲累感。建議建立低糖低脂的飲食習慣，並維持適度的核心肌力訓練。保養重點在於腎臟與膀胱機能的護理。",
-                "annual_impact": "【福星高照年】整體運勢平順穩定，今年非常適合修身養性、學習藝術新知、旅遊或修復家族關係。雖然事業可能缺乏爆發性進展，但內心的幸福感與對生活的滿意度會顯著提升，也極有利於獲得長輩的餽贈。"
+                "social": "人際關係極佳，是社交圈中的潤滑劑與開心果。異性緣帶有強烈的浪漫與依賴色彩，容易吸引具備照顧、溫暖特質的對象。情緣豐富但也容易陷入情感糾纏不清的狀態，需學習建立清晰的拒絕邊界。擇偶宜選成熟穩重、能給予穩定未來承諾且包容力強的夥伴。", 
+                "health": "主掌泌尿系統、排泄系統與內分泌平衡。因重視生活享受與美食，需防範體重超標、糖尿病或代謝問題導致的水腫與疲累感。建議建立低糖低脂的飲食習慣，並維持適度的核心肌力訓練。保養重點在於腎臟與膀胱機能的護理。", 
+                "annual": "【福星高照年】整體運勢平順穩定，今年非常適合修身養性、學習藝術新知、旅遊或修復家族關係。雖然事業可能缺乏爆發性進展，但內心的幸福感與對生活的滿意度會顯著提升，也極有利於獲得長輩的餽贈。" 
             },
-            "廉貞": {
+            "廉貞": { 
                 "intro": "廉貞星為北斗之星。主掌官祿、競爭、外交魅力與自我自律。性格複雜多變，具備強烈的完美主義傾向與獨特的個人藝術磁場，對自我標準極高。", 
                 "career": "適合精密科技、設計研發、外交公關或法律事務領域。處事細膩且具強大的觀察力與邏輯結構能力，能從混亂的資訊中梳理出清晰脈絡。在需要創意與規範並存的領域表現極優。要注意避免因過於堅持己見而引發的職場口舌爭端。職場風格獨特且專業，能應對各種突發性挑戰。", 
                 "wealth": "理財風格獨到且具備偏財運。錢財常來自特定的專業技術、精密佈局或高品質的社交資源。要注意應絕對避開所有灰色地帶的投機與博弈，以免觸犯法律與商譽風險。建議將資金投入個人專業技術的提升與品牌打造。您的財富有著顯著的波段震盪性，理財應守住低點、精準掌握市場節奏。", 
-                "social": "具備強烈的個人魅力，社交風格孤傲但精緻。異性緣極旺，容易陷入刻骨銘心但情感起伏劇烈的深刻關係。在友誼中對他人要求標準極高，知己不在多而求精。擇偶宜選才華對等、性格獨立且能互相欣賞的伴侶。情緣常與職場相關，需防範複雜的情感紛擾。",
-                "health": "主掌血液循環、免疫系統與心理健康穩定。情緒起伏容易導致自律神經失調、濕疹或血液相關病變。心理壓力是您健康的最大殺手，應尋求正確的宣洩管道。建議定期進行規律的有氧運動。保養重點在於造血機能與精神層面的放鬆，應遠離精緻加工食品。",
-                "annual_impact": "【機遇挑戰年】今年才華將在主流場合大放異彩，但也伴隨各種隱形的口舌是非。只要行事守法、態度謙遜低調，利用流年四化的能量化解干擾，必能將挑戰轉化為重大的成就轉機。"
+                "social": "具備強烈的個人魅力，社交風格孤傲但精緻。異性緣極旺，容易陷入刻骨銘心但情感起伏劇烈的深刻關係。在友誼中對他人要求標準極高，知己不在多而求精。擇偶宜選才華對等、性格獨立且能互相欣賞的伴侶。情緣常與職場社交掛鉤，需防範複雜的情感紛擾。", 
+                "health": "主掌血液循環、免疫系統與心理健康穩定。情緒起伏容易導致自律神經失調、濕疹或血液相關病變。心理壓力是您健康的最大殺手，應尋求正確的宣洩管道。建議定期進行規律的有氧運動。保養重點在於造血機能與精神層面的放鬆，應遠離精緻加工食品。", 
+                "annual": "【機遇挑戰年】今年才華將在主流場合大放異彩，但也伴隨各種隱形的口舌是非。只要行事守法、態度謙遜低調，利用流年四化的能量化解干擾，必能將挑戰轉化為重大的成就轉機。" 
             },
-            "天府": {
-                "intro": "天府星為南斗主星，財庫之司。主掌守成、穩健、包容與資源整合。性格沉穩可靠，具備天生的管理長才與深厚的守護意識，是穩定的核心。", 
+            "天府": { 
+                "intro": "天府星為南斗主星，財庫之司。主守成、穩健、包容與資源整合。性格沉穩可靠，具備天生的管理長才與深厚的守護意識，是穩定的核心。", 
                 "career": "適合高端行政管理、金融銀行、大型房產開發或穩健型跨國企業。處事周全細緻，深得團隊部屬信賴，具備極佳的大局觀與資源分配能力。由於性格趨向於安全第一，有時會顯得墨守成規，應適時學習新技術與新觀念。您在職場上是最好的行政支柱，適合處理需要極大耐心的長線穩定專案。", 
                 "wealth": "財運穩定且具備強大的持續積累能力，是典型的『財庫星』。擅長規律儲蓄、不動產購置與低風險保值型投資。理財風格保守求穩，生活品質要求高雅但不奢靡。財富呈現穩定的階梯式上升。您具備『存錢』的天性，但師父建議應適度投資於人際網路與自我成長，讓資產流動起來。", 
-                "social": "寬厚慈祥，社交圈層次分明且極其穩定。在關係中扮演守護者與引導者的角色，是他人依賴的避風港。擇偶重視社會地位的對等、性格穩定性與家庭觀。情緣通常穩定且長久。社交場合中具備天然的威嚴與說服力。情緣多來自長輩介紹或穩定的職場環境。",
-                "health": "主掌消化系統、脾胃與代謝機能。因天生重視食補與享受美食，需嚴格防範腸胃負擔過重、消化不良或代謝緩慢導致的慢性代謝疾病。建議維持少油少鹽的清淡飲食與規律進餐。保養重點在於脾臟與胃部的养护，日常應盡量避免冰冷飲品。",
-                "annual_impact": "【穩健積累年】今年不宜進行跨度太大、高風險的盲目開拓，適合優化與盤點現有資產。家宅運勢旺盛，非常利於改善居住環境、裝修或進行不動產的長線佈局。貴人多來自於家族長輩或資深權威。"
+                "social": "寬厚慈祥，社交圈層次分明且極其穩定。在關係中扮演守護者與引導者的角色，是他人依賴的避風港。擇偶重視社會地位的對等、性格穩定性與家庭觀。情緣通常穩定且長久。社交場合中具備天然的威嚴與說服力。情緣多來自長輩介紹或穩定的職場環境。", 
+                "health": "主掌消化系統、脾胃與代謝機能。因天生重視食補與享受美食，需嚴格防範腸胃負擔過重、消化不良或代謝緩慢導致的慢性代謝疾病。建議維持少油少鹽的清淡飲食與規律進餐。保養重點在於脾臟與胃部的养护，日常應盡量避免冰冷飲品。", 
+                "annual": "【穩健積累年】今年不宜進行跨度太大、高風險的盲目開拓，適合優化與盤點現有資產。家宅運勢旺盛，非常利於改善居住環境、裝修或進行不動產的長線佈局。貴人多來自於家族長輩或資深權威。" 
             },
-            "太陰": {
+            "太陰": { 
                 "intro": "太陰星為中天主星，月之精華。主掌富貴、田宅、感性與細膩直覺。性格柔順內斂，具有母性般的包容心與對美的深刻感悟，內心世界極其豐富。", 
                 "career": "適合財務審計、心理諮商、文藝設計、美學策劃或居家生活產業。在需要精準預算、細節精細處理或情感共鳴的工作環境中，具有無可替代的優勢。要注意防範過度敏感導致的職場人際退縮，在競爭環境中需建立強大的心理防線。適合在穩定且具備人文藝術氣息的平台長期發展。", 
                 "wealth": "財富有著『細水長流』的優雅感，多半能累積豐厚的房產。理財風格極其保守求穩，對不動產投資與美學藝術產品有特殊天賦。財源多來自穩定的本業薪俸或長期的價值投資。建議增加對全球化優質資產的配置，以平衡區域風險。您對錢財有著極高的安全感需求。", 
-                "social": "溫柔體貼且極善於傾聽，是朋友圈中最佳的情感支柱。感情世界豐富細膩，容易受周遭氣氛影響而起伏。在關係中追求情緒的穩定感與絕對的安全感，容易陷入情感內耗。擇偶偏好性格陽光、能給予穩定未來承諾且具備行動力的對象。情感的穩定度取決於內心的平衡感。",
-                "health": "主掌肝腎系統、女性內分泌平衡與情緒調節。容易患有貧血、失眠或因長期隱性壓力導致的內分泌失調與水腫。建議規律親近自然山水進行能量調劑，並適量補充黑色補腎食材。心理健康是身體健康的基石，應重視冥想與高品質睡眠。",
-                "annual_impact": "【內在修煉年】今年利於深度研修、進修、獲取專業資格證照或進行房地產方面的規劃。事業雖不見爆發性的跨越，但內心的祥和平靜會為您帶來極優質的長期合作機緣與深厚的貴人扶持。"
+                "social": "溫柔體貼且極善於傾聽，是朋友圈中最佳的情感支柱。感情世界豐富細膩，容易受周遭氣氛影響而起伏。在關係中追求情緒的穩定感與絕對的安全感，容易陷入情感內耗。擇偶偏好性格陽光、能給予穩定未來承諾且具備行動力的對象。情感的穩定度取決於內心的平衡感。", 
+                "health": "主掌肝腎系統、女性內分泌平衡與情緒調節。容易患有貧血、失眠或因長期隱性壓力導致的內分泌失調與水腫。建議規律親近自然山水進行能量調劑，並適量補充黑色補腎食材。心理健康是身體健康的基石，應重視冥想與高品質睡眠。", 
+                "annual": "【內在修煉年】今年利於深度研修、進修、獲取專業資格證照或進行房地產方面的規劃。事業雖不見爆發性的跨越，但內心的祥和平靜會為您帶來極優質的長期合作機緣與深厚的貴人扶持。" 
             },
-            "貪狼": {
+            "貪狼": { 
                 "intro": "貪狼星為北斗之星，解厄與慾望之神。主掌才藝、社交、變革與慾望。性格多才多藝、靈活外向，對新奇事物有極強探索慾，是典型的社交達人。", 
                 "career": "適合創意廣告、商務談判、演藝文化或具備前瞻性的科技產業。適應力與生存力冠絕群星，能在複雜多變的環境中迅速找到切入點。由於好奇心重且興趣廣泛，職涯初期常轉換軌道。師父建議中年後應專注於單一核心技術的深耕。職場風格靈活多變，擅長處理非標挑戰與公關難題。", 
                 "wealth": "財運具備強烈的投機色彩與瞬間爆發的可能性。擅長利用廣泛的人際關係獲取第一手財富訊息。錢財流動性巨大，建議在豐收年將獲利及時轉入固定資產以『鎖定財富』，防範財來財去的風險。您的財富多半來自『人氣』，理財應重視長期人脈資產的精細維護與信任建立。", 
-                "social": "社交明星，魅力四射。異性緣極其旺盛但也伴隨諸多是非紛擾。在關係中追求感官上的新鮮感與精神上的刺激。情緣中容易發生跌宕起伏的深刻故事。擇偶宜選性格成熟、能引領自己進步且包容心大的對象。需注意社交邊界，防範酒色財氣引發的破耗。",
-                "health": "主掌肝膽機能、生殖系統與皮膚代謝。因交際應酬頻繁，需嚴格防範肝功能負荷過重、腎機能疲勞與皮膚過敏。建議定期進行肝臟排毒，並嚴格控制酒精與精緻糖分的攝取。保養重點在於高品質的深度睡眠，避免長期熬夜透支。",
-                "annual_impact": "【靈性考驗年】外界誘惑與選擇顯著增多，是考驗您定力與自律的關鍵年份。若能將旺盛的精力轉向專業技術研修或心靈成長與修行，今年將有非凡的跨越收穫；反之則要防範口舌是非導致的財物受損。"
+                "social": "社交明星，魅力四射。異性緣極其旺盛但也伴隨諸多是非紛擾。在關係中追求感官上的新鮮感與精神上的刺激。情緣中容易發生跌宕起伏的深刻故事。擇偶宜選性格成熟、能引領自己進步且包容心大的對象。需注意社交邊界，防範酒色財氣引發的破耗。", 
+                "health": "主掌肝膽機能、生殖系統與皮膚代謝。因交際應酬頻繁，需嚴格防範肝功能負荷過重、腎機能疲勞與皮膚過敏。建議定期進行肝臟排毒，並嚴格控制酒精與精緻糖分的攝取。保養重點在於高品質的深度睡眠，避免長期熬夜透支。", 
+                "annual": "【靈性考驗年】外界誘惑與選擇顯著增多，是考驗您定力與自律的關鍵年份。若能將旺盛的精力轉向專業技術研修或心靈成長與修行，今年將有非凡的跨越收穫；反之則要防範口舌是非導致的財物受損。" 
             },
-            "巨門": {
+            "巨門": { 
                 "intro": "巨門星為北斗是非之星，溝通之主。主掌觀察、懷疑、求真與表達。性格心思縝密但容易多疑，具備極強的分析邏輯與穿透表象的視覺洞察力。", 
                 "career": "適合法律諮詢、教育研究、新聞媒體、專業評論或各類精密科學實驗領域。適合『口舌生財』或需要深度挖掘事實真相的職業。擅長精確發現系統或流程中的微小漏洞。要注意在職場中說話過於犀利傷人，應多磨練溝通藝術與包容心以減少不必要的敵意。", 
                 "wealth": "錢財多來自專業領域的深度積累與聲譽。理財風格注重邏輯模型與實質證據。注意：需防範因口舌紛爭或法律契約瑕疵導致的意外損財與官非。適合建立高門檻且具備法律保障的資產組合。理財心態偏於嚴密防禦，應避免聽信非專業管道的投資偏方，穩健為上。", 
-                "social": "性格較為慢熱且愛恨分明，對朋友挑選標準極其嚴苛，知心友雖少但皆為患難之交。溝通中容易給他人壓迫感，需增加親和力與幽默感。擇偶對象極重忠誠度與智商層次。情緣通常伴隨著長時間的磨合。情感世界極度內斂，需防猜疑心破壞親密關係。",
-                "health": "主掌脾胃機能、口腔氣管與呼吸道。心理壓力對健康影響顯著，容易患有氣管慢性炎症、胃酸過多或潰瘍。建議學習樂觀豁達的人生哲學，並增加規律的戶外社交。保養重點在於咽喉與支氣管的濕潤與养护，日常應多喝潤肺茶飲。",
-                "annual_impact": "【專業突破年】雖然流年口舌紛擾會顯著增加，但這正是展現您邏輯分析力與事實公信力的絕佳機會。只要堅守誠信與數據事實，負面聲浪終將轉化為認可您的權威資本，利於建立江湖地位。"
+                "social": "性格較為慢熱且愛恨分明，對朋友挑選標準極其嚴苛，知心友雖少但皆為患難之交。溝通中容易給他人壓迫感，需增加親和力與幽默感。擇偶對象極重忠誠度與智商層次。情緣通常伴隨著長時間的磨合。情感世界極度內斂，需防猜疑心破壞親密關係。", 
+                "health": "主掌脾胃機能、口腔氣管與呼吸道。心理壓力對健康影響顯著，容易患有氣管慢性炎症、胃酸過多或潰瘍。建議學習樂觀豁達的人生哲學，並增加規律的戶外社交。保養重點在於咽喉與支氣管的濕潤與养护，日常應多喝潤肺茶飲。", 
+                "annual": "【專業突破年】雖然流年口舌紛擾會顯著增加，但這正是展現您邏輯分析力與事實公信力的絕佳機會。只要堅守誠信與數據事實，負面聲浪終將轉化為認可您的權威資本，利於建立江湖地位。" 
             },
-            "天相": {
+            "天相": { 
                 "intro": "天相星為南斗印星，主掌忠厚、規矩、和諧與印信標準。其性格優雅得體、重視社會評價、美感與秩序的維持，是極佳的輔佐之才。", 
                 "career": "適合中層核心管理、行政協調官、專業秘書、會計審核或高品質精品產業。您是團隊中最佳的執行者與協調樞紐，能精準解讀並落實上級戰略。具有極佳的品牌美學感，職場風格溫和且值得絕對信賴。您適合在穩定且強調專業流程與標準的環境發揮所長。", 
                 "wealth": "正財收入來源極其穩定。理財風格重視質感而不重短線投機，錢財多花在提升生活品質、個人形象與必要的社交排場上。財富積累高度依靠『時間複利』效應。天生對金錢管理具備極佳的平衡感，不易陷入負債危機。建議配置穩健成長型基金與高品質收息資產。", 
-                "social": "受人高度信任，朋友圈多為正向的正派社交。在情緣中重視儀式感、門面與社會評價的對等。擇偶傾向於溫文儒雅、事業底蘊紮實且情緒穩定的對象。感情生活趨於平順，但需多增加驚喜元素以維持熱度。社交即是您的資源。常能獲得伴侶的實質支持與協助。",
-                "health": "主掌腎臟機能、皮膚代謝與內分泌系統。需防範皮膚過敏、濕疹、尿酸問題或因高壓引發的腎機能負擔。心理健康對您的外在皮膚狀況與氣色影響顯著，建議減少精緻化學加工食品。保養重點在於每日攝取高質量的純淨飲水與適度排汗。",
-                "annual_impact": "【和諧運作年】今年極其有利於簽署重要商業契約、達成人生重大人際協議或進行調停。誠信是您今年的核心資產，凡事依循既有規矩與法律行事，不僅能穩定獲利，還能贏得長遠的商業商譽。",
-                "advice": "今年凡事依規行事，則獲利自來。"
+                "social": "受人高度信任，朋友圈多為正向的正派社交。在情緣中重視儀式感、門面與社會評價的對等。擇偶傾向於溫文儒雅、事業底蘊紮實且情緒穩定的對象。感情生活趨於平順，但需多增加驚喜元素以維持熱度。社交即是您的資源。常能獲得伴侶的實質支持與協助。", 
+                "health": "主掌腎臟機能、皮膚代謝與內分泌系統。需防範皮膚過敏、濕疹、尿酸問題或因高壓引發的腎機能負擔。心理健康對您的外在皮膚狀況與氣色影響顯著，建議減少精緻化學加工食品。保養重點在於每日攝取高質量的純淨飲水與適度排汗。", 
+                "annual": "【和諧運作年】今年極其有利於簽署重要商業契約、達成人生重大人際協議或進行調停。誠信是您今年的核心資產，凡事依循既有規矩與法律行事，不僅能穩定獲利，還能贏得長遠的商業商譽。" 
             },
-            "天梁": {
+            "天梁": { 
                 "intro": "天梁星為南斗長壽之星，蔭庇之神。主掌慈悲、化解、長者風範與孤高。性格成熟穩重，具備將危難化為轉機的奇蹟能量，是化難之星。", 
                 "career": "適合教育研發、醫療護理、公益慈善、法律審核或任何帶有『解決大麻煩』特質的諮詢工作。你是團隊中的定海神針，具有極高公信力。適合在非營利組織或政府監管單位發展。要注意有時過於好為人師而顯得與年輕輩隔閡。能靠長期建立的聲譽與專業權威獲利。", 
                 "wealth": "財運帶有顯著的『後福』與『長輩提攜』特質。錢財多來自長輩贈與、祖產傳承、保險賠償或長年深耕專業後的技術紅利。理財心態極度保守安全。對金錢態度相對淡泊，但這份淡泊反而常吸引穩定的財源注入。建議配置保本型資產或ESG永續投資標的。", 
-                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、孝順且性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。",
-                "health": "主掌消化系統、骨骼系統與整體免疫力。雖主長壽，但容易患有慢性關節炎症、脾胃虛寒或骨質疏鬆。建議增加適度的骨質鍛鍊（如快走），並重視溫補藥膳的節氣調理。保養重點在於脊椎關節的定期伸展與保護，不宜維持同一姿勢過久。",
-                "annual_impact": "【逢凶化吉年】若遇阻礙切莫驚慌自亂陣腳，貴人必會在最關鍵時刻現身相助。今年適合修補破碎的人際關係、進行高端健康檢查或學習玄學智慧。這一年『轉化』能量極強，能徹底解決困擾多年的難題。"
+                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、孝順且性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。", 
+                "health": "主掌消化系統、骨骼系統與整體免疫力。雖主長壽，但容易患有慢性關節炎症、脾胃虛寒或骨質疏鬆。建議增加適度的骨質鍛鍊（如快走），並重視溫補藥膳的節氣調理。保養重點在於脊椎關節的定期伸展與保護，不宜維持同一姿勢過久。", 
+                "annual": "【逢凶化吉年】若遇阻礙切莫驚慌自亂陣腳，貴人必會在最關鍵時刻現身相助。今年適合修補破碎的人際關係、進行高端健康檢查或學習玄學智慧。這一年『轉化』能量極強，能徹底解決困擾多年的難題。" 
             },
-            "七殺": {
+            "七殺": { 
                 "intro": "七殺星為南斗將星之首。主掌瞬間爆發力、決斷、獨立與變革。性格剛烈獨立，具備極強生存意志，是不畏挑戰的先鋒鬥士，勇氣過人。", 
-                "career": "適合創業開拓、前線銷售對抗、高難度技術攻關 or 軍警執法。不耐受傳統框架與瑣碎行政的束縛，追求瞬間的決斷成就感。適合在動盪、高度競爭的藍海環境中爭取市場佔有率。要注意磨練長遠耐心，避免因一時的情緒衝動或孤注一擲而毀棄了之前的長遠佈局。", 
+                "career": "適合創業開拓、前線銷售對抗、高難度技術攻關或軍警執法。不耐受傳統框架與瑣碎行政的束縛，追求瞬間的決斷成就感。適合在動盪、高度競爭的藍海環境中爭取市場佔有率。要注意磨練長遠耐心，避免因一時的情緒衝動或孤注一擲而毀棄了之前的長遠佈局。", 
                 "wealth": "財富具有顯著的冒險性與大起大落特質，財運隨事業成敗劇烈波動。理財風格激進大膽，容易在短時間內獲取鉅額利潤，但也常伴隨對等的風險損失。師父建議在中年後將資金交予專業保守機構代管。正財運不穩定，宜專注於高獲利核心項目。需嚴防意外性損財。", 
-                "social": "愛恨分明，對朋友肝膽相照，重義氣。不屑虛偽應酬社交，戰友通常就是最好的朋友。在情緣中主導慾極強，容易發生一見鍾情式的情感噴發。擇偶傾向性格堅毅、能給予自己足夠自由空間與尊重的伴侶。情路起伏多波折，需嚴防衝動下的情感與婚姻決策。",
-                "health": "主掌肺部呼吸道、大腸機能與意外外傷防護。因過度體力消耗與神經高度緊繃，需防範呼吸道慢性發炎或嚴重的運動、意外受傷。建議學習瑜伽、太極或深度呼吸訓練以中和過於剛強的磁場。保養重點在於肺氣的滋養，應遠離空氣污染與極端壓力環境。",
-                "annual_impact": "【開拓進取年】今年能量異常充沛，利於啟動擱置已久的宏大開拓計畫。這一年適合大刀闊斧的徹底變革。只要在細節上多加覆核，避免盲目躁進，下半年將有里程碑式的跨越成長與收獲。"
+                "social": "愛恨分明，對朋友肝膽相照，重義氣。不屑虛偽應酬社交，戰友通常就是最好的朋友。在情緣中主導慾極強，容易發生一見鍾情式的情感噴發。擇偶傾向性格堅毅、能給予自己足夠自由空間與尊重的伴侶。情路起伏多波折，需嚴防衝動下的情感與婚姻決策。", 
+                "health": "主掌肺部呼吸道、大腸機能與意外外傷防護。因過度體力消耗與神經高度緊繃，需防範呼吸道慢性發炎或嚴重的運動、意外受傷。建議學習瑜伽、太極或深度呼吸訓練以中和過於剛強的磁場。保養重點在於肺氣的滋養，應遠離空氣污染與極端壓力環境。", 
+                "annual": "【開拓進取年】今年能量異常充沛，利於啟動擱置已久的宏大開拓計畫。這一年適合大刀闊斧的徹底變革。只要在細節上多加覆核，避免盲目躁進，下半年將有里程碑式的跨越成長與收獲。" 
             },
-            "破軍": {
+            "破軍": { 
                 "intro": "破軍星為北斗變革之主。主掌消耗、破壞後的重組與先鋒精神。性格求新求變，具備強烈的破舊立新衝動與開創性破壞力，不畏艱難。", 
                 "career": "適合電商開拓、市場重組、轉型顧問、廢墟重建或任何具備『顛覆傳統』特質的先鋒產業。不耐守成安穩的工作環境。適合處理積重難返的殘局或在無人荒蕪地帶開荒。要注意在『破』的過程中應盡量保留有價值的核心遺產與資源。在職場中適合擔任轉型核心。", 
                 "wealth": "財運主『大幅波動』，通常先損而後得。錢財流動性極大，擅長打破現有的利益壟斷結構來獲利。理財應聚焦於單一高價值的研發或轉型投入。建議嚴格執行停損控制，並在豐收高峰期及時撤退至安全的資產避風港。不適合穩定的低息存款，應追求轉型紅利。", 
-                "social": "作風特立獨行，絕對不隨波逐流。在社交中容易給他人極端、叛逆或難以捉摸的印象。在感情中勇於付出且不計成本，但也伴隨極強的佔有慾與情緒巨震。擇偶宜選性格極度寬容、具備高度藝術修養或心靈層次高的人。感情生活富戲劇性與張力。社交具備獨特話語權。",
-                "health": "主掌血液、生殖系統、排毒機能與整體免疫防禦。體質容易損耗，需嚴密防範過度勞累導致的免疫功能崩潰或血液相關變異。重視深度的高質量睡眠，避免長期透支體力進行極限工作。保養重點在於高品質抗氧化食材的攝取與身心的徹底排毒療程。",
-                "annual_impact": "【徹底革新年】今年適合主動執行『斷捨離』，主動尋求事業方向或居住、工作環境的重大變革。主動變革將比被動等待更具生機與轉運能量。只要執著於目標，重組後的秩序將帶來前所未有的長期繁榮。"
+                "social": "作風特立獨行，絕對不隨波逐流。在社交中容易給他人極端、叛逆或難以捉摸的印象。在感情中勇於付出且不計成本，但也伴隨極強的佔有慾與情緒巨震。擇偶宜選性格極度寬容、具備高度藝術修養或心靈層次高的人。感情生活富戲劇性與張力。社交具備獨特話語權。", 
+                "health": "主掌血液、生殖系統、排毒機能與整體免疫防禦。體質容易損耗，需嚴密防範過度勞累導致的免疫功能崩潰或血液相關變異。重視深度的高質量睡眠，避免長期透支體力進行極限工作。保養重點在於高品質抗氧化食材的攝取與身心的徹底排毒療程。", 
+                "annual": "【徹底革新年】今年適合主動執行『斷捨離』，主動尋求事業方向或居住、工作環境的重大變革。主動變革將比被動等待更具生機與轉運能量。只要執著於目標，重組後的秩序將帶來前所未有的長期繁榮。" 
             }
         };
 
-        function initDays() {
-            const daySelect = document.getElementById('day');
-            const month = parseInt(document.getElementById('month').value);
-            const year = parseInt(document.getElementById('year').value);
-            const daysInMonth = new Date(year, month, 0).getDate();
-            daySelect.innerHTML = '';
-            for (let i = 1; i <= daysInMonth; i++) {
-                const option = document.createElement('option');
-                option.value = i; option.textContent = i + '日';
-                daySelect.appendChild(option);
-            }
-        }
-        document.getElementById('month').addEventListener('change', initDays);
-        document.getElementById('year').addEventListener('change', initDays);
+        // 新增雙星聯動分析資料庫
+        const LINKAGE_DB = {
+            "紫微天府": "【紫府同宮格】兩大主星同坐，格局宏大，具備極強的包容力與穩定權力。這種組合的人性格極度穩重，做事滴水不漏，但也容易因為過於求全而顯得決斷較慢。",
+            "太陽巨門": "【巨日同臨格】太陽的光芒驅散了巨門的陰暗與猜疑，此命格利於在異國或異鄉發展，且具備極佳的跨國外交與國際貿易天賦。口才與名聲並重，能靠才華贏得權威地位。",
+            "武曲貪狼": "【武貪同行格】屬於典型的『大器晚成』組合。職涯早期多磨難，但在三十五歲後能量爆發，偏財運與實業爆發力極強。性格果敢且具備商務手腕。",
+            "天機太陰": "【機月同臨格】思維極其縝密，具備極強的企劃與行政天賦。性格溫柔內斂，在穩定的大型體系中能發揮如魚得水的執行力，適合幕僚或精密策劃職務。",
+            "廉貞天相": "【廉相守命格】兼具法規的正義感與細膩的公關手腕。此格的人在外在形象上非常有質感，能在混亂的體制中建立新的標準與秩序，利於在法律或高端品牌領域深耕。",
+            "紫微貪狼": "【桃花犯主格】雖然在人際關係與異性緣上極度旺盛，但需注意慾望的節制。若能將感性能量轉化為藝術創作或商務公關，這將是極具魅力的商業命格。"
+        };
 
         function solarToLunar(y, m, d) {
             const baseDate = new Date(1900, 0, 31);
@@ -434,60 +384,23 @@
                 }
                 return { palaces, phase, lifePos };
             }
-            getPhase(stem, branch) {
-                const nayins = { 2: ["甲申", "乙酉", "丙辰", "丁巳", "甲寅", "乙卯", "壬戌", "癸亥", "丙戌", "丁亥"], 3: ["壬午", "癸未", "庚寅", "辛卯", "戊戌", "己亥", "壬子", "癸丑", "庚申", "辛酉"], 4: ["甲子", "乙丑", "壬申", "癸酉", "庚辰", "辛巳", "甲午", "乙未", "壬寅", "癸卯"], 5: ["庚午", "辛未", "戊寅", "己卯", "丙戌", "丁亥", "庚子", "辛丑", "戊申", "己酉"], 6: ["丙寅", "丁卯", "甲戌", "乙亥", "戊子", "己丑", "丙申", "丁酉", "甲辰", "乙巳"] };
-                const target = stem + branch;
-                for (const [phase, combos] of Object.entries(nayins)) { if (combos.includes(target)) return parseInt(phase); }
-                return 2;
+            getPhase(s, b) {
+                const n = { 2: ["甲申","乙酉","丙辰","丁巳","甲寅","乙卯","壬戌","癸亥","丙戌","丁亥"], 3: ["壬午","癸未","庚寅","辛卯","戊戌","己亥","壬子","癸醜","庚申","辛酉"], 4: ["甲子","乙丑","壬申","癸酉","庚辰","辛巳","甲午","乙未","壬寅","癸卯"], 5: ["庚午","辛未","戊寅","己卯","丙戌","丁亥","庚子","辛丑","戊申","己酉"], 6: ["丙寅","丁卯","甲戌","乙亥","戊子","己丑","丙申","丁酉","甲辰","乙巳"] };
+                const t = s + b; for (let p in n) { if (n[p].includes(t)) return parseInt(p); } return 2;
             }
-            getZiweiPos(day, phase) {
-                const q = Math.floor(day / phase); const r = day % phase;
-                if (r === 0) return (2 + q - 1) % 12;
-                const move = phase - r;
-                if (move % 2 === 1) return (2 + (q + 1) - move + 12) % 12;
-                return (2 + (q + 1) + move) % 12;
-            }
-            setMainStars(palaces, zvPos) {
-                const zvStars = ["紫微", "天機", "太陽", "武曲", "天同", "廉貞"];
-                const zvOffsets = [0, -1, -3, -4, -5, -8];
-                for (let i = 0; i < zvStars.length; i++) { palaces[(zvPos + zvOffsets[i] + 12) % 12].main_stars.push(zvStars[i]); }
-                const tfPos = (10 - zvPos + 12) % 12;
-                const tfStars = ["天府", "太陰", "貪狼", "巨門", "天相", "天梁", "七殺", "破軍"];
-                const tfOffsets = [0, 1, 2, 3, 4, 5, 6, 10];
-                for (let i = 0; i < tfStars.length; i++) { palaces[(tfPos + tfOffsets[i] + 12) % 12].main_stars.push(tfStars[i]); }
-            }
-            generateAnalysis(name, lDate, palaces, phase, lifePos) {
-                const [ly, lm, ld] = lDate;
-                const birthStem = STEMS[(ly - 4) % 10];
-                const thisYear = new Date().getFullYear();
-                const nextYear = thisYear + 1;
-                const stemThis = STEMS[(thisYear - 4) % 10];
-                const branchThis = BRANCHES[(thisYear - 4) % 12];
-                const stemNext = STEMS[(nextYear - 4) % 10];
-                const branchNext = BRANCHES[(nextYear - 4) % 12];
-                const lifePalace = palaces[lifePos];
-                let lookupStar = ""; let isBorrowed = false;
-                if (lifePalace.main_stars.length > 0) { lookupStar = lifePalace.main_stars[0]; } 
-                else {
-                    const migrationIdx = (lifePos + 6) % 12;
-                    const migrationPalace = palaces[migrationIdx];
-                    if (migrationPalace.main_stars.length > 0) { lookupStar = migrationPalace.main_stars[0]; isBorrowed = true; } 
-                    else { lookupStar = "紫微"; }
-                }
-                const starInfo = STAR_DB[lookupStar];
-                return { lookupStar, borrowTag: isBorrowed ? "(借對宮分析)" : "", birthStem, phase, thisYear, nextYear, stemThis, branchThis, stemNext, branchNext, starInfo };
+            getZiweiPos(d, p) { let q = Math.floor(d/p), r = d%p; if(r===0) return (2+q-1)%12; let m = p-r; return (m%2===1) ? (2+q+1-m+12)%12 : (2+q+1+m)%12; }
+            setMainStars(ps, zv) {
+                const zvs = ["紫微","天機","太陽","武曲","天同","廉貞"], zvo = [0,-1,-3,-4,-5,-8];
+                zvs.forEach((s,i) => ps[(zv+zvo[i]+12)%12].main_stars.push(s));
+                const tf = (10-zv+12)%12, tfs = ["天府","太陰","貪狼","巨門","天相","天梁","七殺","破軍"], tfo = [0,1,2,3,4,5,6,10];
+                tfs.forEach((s,i) => ps[(tf+tfo[i]+12)%12].main_stars.push(s));
             }
         }
 
         function renderChart(palaces) {
             const chartGrid = document.getElementById('chartGrid');
             chartGrid.innerHTML = '';
-            const posMap = [
-                {p: 3, r: 0, c: 0}, {p: 4, r: 0, c: 1}, {p: 5, r: 0, c: 2}, {p: 6, r: 0, c: 3},
-                {p: 2, r: 1, c: 3}, {p: 1, r: 2, c: 3},
-                {p: 0, r: 3, c: 3}, {p: 11, r: 3, c: 2}, {p: 10, r: 3, c: 1}, {p: 9, r: 3, c: 0},
-                {p: 8, r: 2, c: 0}, {p: 7, r: 1, c: 0}
-            ];
+            const posMap = [{p:3,r:0,c:0},{p:4,r:0,c:1},{p:5,r:0,c:2},{p:6,r:0,c:3},{p:2,r:1,c:3},{p:1,r:2,c:3},{p:0,r:3,c:3},{p:11,r:3,c:2},{p:10,r:3,c:1},{p:9,r:3,c:0},{p:8,r:2,c:0},{p:7,r:1,c:0}];
             const grid = Array(4).fill().map(() => Array(4).fill(null));
             posMap.forEach(pos => { grid[pos.r][pos.c] = palaces[pos.p]; });
 
@@ -517,58 +430,105 @@
             }
         }
 
-        function renderAnalysis(name, data, lDate) {
-            const siHuaThis = SI_HUA_DATA[data.stemThis];
-            const siHuaNext = SI_HUA_DATA[data.stemNext];
+        function renderAnalysis(name, lDate, palaces, lifePos) {
+            const [ly, lm, ld] = lDate;
+            const birthStem = STEMS[(ly - 4) % 10];
+            const thisYear = new Date().getFullYear();
+            const nextYear = thisYear + 1;
+            const stemThis = STEMS[(thisYear - 4) % 10];
+            const branchThis = BRANCHES[(thisYear - 4) % 12];
+            const stemNext = STEMS[(nextYear - 4) % 10];
+            const branchNext = BRANCHES[(nextYear - 4) % 12];
+
+            // 判別命主星與聯動關係
+            const lifePalace = palaces[lifePos];
+            let starsToAnalyze = [];
+            let isBorrowed = false;
+            if (lifePalace.main_stars.length > 0) {
+                starsToAnalyze = lifePalace.main_stars;
+            } else {
+                const migrationIdx = (lifePos + 6) % 12;
+                starsToAnalyze = palaces[migrationIdx].main_stars;
+                isBorrowed = true;
+            }
+            if (starsToAnalyze.length === 0) starsToAnalyze = ["紫微"]; // 保底處理
+
+            // 偵測聯動格局
+            let linkageText = "";
+            const starStr = starsToAnalyze.sort().join('');
+            for (let key in LINKAGE_DB) {
+                if (starStr.includes(key[0]) && starStr.includes(key[1])) {
+                    linkageText = `<div class="info-box" style="border-color:#A62C2B; background:#FFF0F0;"><b style="color:#A62C2B; font-size:24px;">🔮 特別格局聯動分析：</b><p style="margin-top:10px;">${LINKAGE_DB[key]}</p></div>`;
+                    break;
+                }
+            }
+
+            let comboIntro = "", comboCareer = "", comboWealth = "", comboSocial = "", comboHealth = "", comboAnnual = "";
+            starsToAnalyze.forEach(s => {
+                const info = STAR_DB[s];
+                comboIntro += (comboIntro ? "與" : "") + info.intro;
+                comboCareer += `<div class="analysis-item"><b>💼 【${s}】之事業潛力與職業適配：</b><p>${info.career}</p></div>`;
+                comboWealth += `<div class="analysis-item"><b>💰 【${s}】之財富機緣與理財風格：</b><p>${info.wealth}</p></div>`;
+                comboSocial += `<div class="analysis-item"><b>🤝 【${s}】之人際交際與情緣特質：</b><p>${info.social}</p></div>`;
+                comboHealth += `<div class="analysis-item"><b>🛡️ 【${s}】之健康提醒與生活調養：</b><p>${info.health}</p></div>`;
+                comboAnnual += `<li><b>【${s}星年度預測】：</b>${info.annual}</li>`;
+            });
+
             const html = `
                 <div class="analysis-header">
                     <h2>田 禾 宮 ・ 專 業 命 理 詳 批</h2>
-                    <p>自動年度動態分析 (偵測年份：${data.thisYear}-${data.nextYear})</p>
+                    <p>自動年度動態分析 (偵測年份：${thisYear}-${nextYear})</p>
                 </div>
                 <div class="info-box">
                     <table>
                         <tr>
                             <td><b>緣主姓名：</b> ${name}</td>
-                            <td><b>命主核心：</b> <span class="highlight">${data.lookupStar}星坐命 ${data.borrowTag}</span></td>
+                            <td><b>命主核心：</b> <span class="highlight">${starsToAnalyze.join('、')}星坐命 ${isBorrowed ? "(借對宮)" : ""}</span></td>
                         </tr>
                         <tr>
-                            <td><b>農曆生辰：</b> ${lDate[0]}(${data.birthStem})年${lDate[1]}月${lDate[2]}日</td>
-                            <td><b>格局定位：</b> ${data.phase}局人</td>
+                            <td><b>農曆生辰：</b> ${ly}(${birthStem})年${lm}月${ld}日</td>
+                            <td><b>流年運勢：</b> ${thisYear}為${stemThis}${branchThis}年，當前能量磁場極強</td>
                         </tr>
                     </table>
                 </div>
-                <div style="margin-bottom: 40px;">
-                    <div class="section-title">【本命格局詳盡深度分析】</div>
+
+                ${linkageText}
+
+                <div style="margin-bottom: 50px;">
+                    <div class="section-title">【本命格局詳盡深度解析】</div>
                     <div class="section-content">
-                        <p class="quote">「${data.starInfo.intro}」</p>
-                        <div class="analysis-item"><b>💼 事業潛力與職業適配：</b><p>${data.starInfo.career}</p></div>
-                        <div class="analysis-item"><b>💰 財富機緣與理財風格：</b><p>${data.starInfo.wealth}</p></div>
-                        <div class="analysis-item"><b>🤝 人際交際與情緣特質：</b><p>${data.starInfo.social}</p></div>
-                        <div class="analysis-item"><b>🛡️ 健康提醒與生活調養：</b><p>${data.starInfo.health}</p></div>
+                        <p class="quote">「${comboIntro}」</p>
+                        ${comboCareer}
+                        ${comboWealth}
+                        ${comboSocial}
+                        ${comboHealth}
                     </div>
                 </div>
+
                 <div class="year-prediction">
-                    <div class="year-header">今年預測：西元 ${data.thisYear} (${data.stemThis}${data.branchThis}) 年</div>
+                    <div class="year-header">今年運勢展望：西元 ${thisYear} (${stemThis}${branchThis}) 年</div>
                     <div class="year-content">
-                        <div style="text-align: center;"><span class="si-hua-tag">流年四化：${siHuaThis}</span></div>
-                        <p><b>【流年整體環境趨勢】</b><br>${data.starInfo.annual_impact}</p>
+                        <div style="text-align: center;"><span class="si-hua-tag">流年四化：${SI_HUA_DATA[stemThis]}</span></div>
+                        <p><b>【本年度整體環境影響】</b><br><ul style="padding-left:20px; margin-top:15px; line-height:2;">${comboAnnual}</ul></p>
                         <div class="advice-box">
                             <b>🔮 師父指引：</b>
-                            <p>本年度能量場穩定但帶有特定挑戰，針對「${data.lookupStar}」的命盤結構，切記穩中求進。面對重大抉擇應先沉澱情緒再決定，方能轉禍為祥。保持內心的光明與正直是今年的必修課。</p>
+                            <p>本年度受「${SI_HUA_DATA[stemThis].split('、').pop()}」能量牽引，針對「${starsToAnalyze.join('、')}」星組合，切記「穩中求進」與「內省自律」兩大原則。面對重大抉擇應先沉澱情緒再決定，方能轉禍為祥。保持內心的正直與光明是今年的必修課。</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="year-prediction next-year">
-                    <div class="year-header">明年展望：西元 ${data.nextYear} (${data.stemNext}${data.branchNext}) 年</div>
+                    <div class="year-header">明年運勢展望：西元 ${nextYear} (${stemNext}${branchNext}) 年</div>
                     <div class="year-content">
-                        <div style="text-align: center;"><span class="si-hua-tag">預計流年四化：${siHuaNext}</span></div>
-                        <p>進入 ${data.nextYear} 年後，環境能量場將受「${siHuaNext}」之引動。對於您 ${data.lookupStar} 坐命者而言，明年將進入一個「收斂與重整」的階段。相對於今年的開拓，明年更利於暗財積累與技術深耕，是厚積薄發的一年。</p>
+                        <div style="text-align: center;"><span class="si-hua-tag">預計流年四化：${SI_HUA_DATA[stemNext]}</span></div>
+                        <p>進入 ${nextYear} 年後，能量場將受「${SI_HUA_DATA[stemNext]}」引動。對於您而言，明年將進入一個「收斂與重整」的階段。相對於今年的開拓與發散，明年更利於「暗財積累」與「專業技術深耕」，是厚積薄發的關鍵年份。</p>
                         <div class="advice-box">
                             <b>🔮 師父叮嚀：</b>
-                            <p>明年口舌是非顯著增加，應多用智慧化解。理財上適合長期穩健配置，不宜進行激進投機。凡事預則立，不預則廢。</p>
+                            <p>受「${SI_HUA_DATA[stemNext].split('、').pop()}」影響，明年口舌是非與文書瑕疵將顯著增加。應多用智慧與耐性去化解紛擾，不宜進行激進擴張或投機冒險。凡事預則立，不預則廢。</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="footer-msg">
                     <b>師 父 寄 語</b>
                     <p>「紫微星盤為人生之地圖，年份流轉吉凶生。行善積德，是改命的最佳捷徑。」</p>
@@ -576,6 +536,22 @@
             `;
             document.getElementById('analysisContent').innerHTML = html;
         }
+
+        function initDaysLogic() {
+            const daySelect = document.getElementById('day');
+            const month = parseInt(document.getElementById('month').value);
+            const year = parseInt(document.getElementById('year').value);
+            const daysInMonth = new Date(year, month, 0).getDate();
+            daySelect.innerHTML = '';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const option = document.createElement('option');
+                option.value = i; option.textContent = i + '日';
+                daySelect.appendChild(option);
+            }
+        }
+
+        document.getElementById('month').addEventListener('change', initDaysLogic);
+        document.getElementById('year').addEventListener('change', initDaysLogic);
 
         function runAnalysis() {
             const name = document.getElementById('name').value || "緣主";
@@ -588,12 +564,12 @@
             const engine = new ZiWeiEngine();
             const { palaces, phase, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
             renderChart(palaces);
-            const analysisData = engine.generateAnalysis(name, lDate, palaces, phase, lifePos);
-            renderAnalysis(name, analysisData, lDate);
+            renderAnalysis(name, lDate, palaces, lifePos);
             document.getElementById('result').classList.add('active');
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
-        initDays();
+
+        initDaysLogic();
     </script>
 </body>
 </html>
