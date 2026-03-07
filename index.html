@@ -139,14 +139,14 @@
         <!-- API 設定 -->
         <div class="api-config">
             <div class="api-group">
-                <label>🔗 API URL:</label>
-                <input type="text" id="apiUrl" placeholder="Local API URL" onchange="saveApiSettings()">
+                <label>🔗 Local API URL:</label>
+                <input type="text" id="apiUrl" placeholder="例如: http://localhost:1234" onchange="saveApiSettings()">
             </div>
             <div class="api-group">
-                <label>🔑 Key:</label>
-                <input type="password" id="apiKey" placeholder="選填" onchange="saveApiSettings()">
+                <label>🔑 API Key (選填):</label>
+                <input type="password" id="apiKey" placeholder="若伺服器需要請填入" onchange="saveApiSettings()">
             </div>
-            <div class="api-tip">* 系統預設偵測目前流年。解析文本已完整還原，不進行任何精簡。</div>
+            <div class="api-tip">* 系統會自動檢測並補完 /v1/chat/completions 路徑。</div>
         </div>
 
         <!-- 輸入資料 -->
@@ -255,7 +255,7 @@
             },
             "太陰": {
                 "intro": "太陰星為中天主星，月之精華。主掌富貴、田宅、感性與細膩直覺。性格柔順內斂，具有母性般的包容心與對美的深刻感悟，內心世界極其豐富。",
-                "career": "適合財務審計、心理諮商、文藝設計、美學策劃或居家生活產業。在需要精準預算、細節精細處理或情感共鳴的工作環境中，具有無可替代的優勢。要注意防範過度敏感導致的職場人際退縮，在競爭環境中需建立強大的心理防線。適合在穩定且具備人文藝術氣息的平台長期發展。",
+                "career": "適合財務審計、心理諮商、文藝設計、美學策劃過或居家生活產業。在需要精準預算、細節精細處理或情感共鳴的工作環境中，具有無可替代的優勢。要注意防範過度敏感導致的職場人際退縮，在競爭環境中需建立強大的心理防線。適合在穩定且具備人文藝術氣息的平台長期發展。",
                 "wealth": "財富有著『細水長流』的優雅感，多半能累積豐厚房產。理財風格極其保守求穩，對不動產投資與美學藝術產品有特殊天賦。財源多來自穩定的本業薪俸或長期的價值投資。建議增加對全球化優質資產的配置，以平衡區域風險。您對錢財有著極高的安全感需求。",
                 "social": "溫柔體貼且極善於傾聽，是朋友圈中最佳的情感支柱。感情世界豐富細膩，容易受周遭氣氛影響而起伏。在關係中追求情緒的穩定感與絕對的安全感，容易陷入情感內耗。擇偶偏好性格陽光、能給予穩定未來承諾且具備行動力的對象。情感的穩定度取決於內心的平衡感。",
                 "health": "主掌肝腎系統、女性內分泌平衡與情緒調節。容易患有貧血、失眠或因長期隱性壓力導致的內分泌失調與水腫。建議規律親近自然山水進行能量調劑，並適量補充黑色補腎食材。心理健康是身體健康的基石，應重視冥想與高品質睡眠。",
@@ -312,19 +312,10 @@
         };
 
         // --- 邏輯函數 ---
-        const SI_HUA_DATA = {"甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌", "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌", "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌", "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌", "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"};
-        const BRIGHTNESS = { "紫微": ["廟","廟","旺","利","廟","旺","廟","得","廟","得","旺","廟"], "天機": ["廟","陷","廟","旺","陷","得","廟","陷","廟","旺","陷","得"], "太陽": ["陷","陷","旺","廟","廟","旺","廟","得","得","陷","陷","陷"], "武曲": ["旺","廟","得","利","廟","陷","旺","廟","得","利","廟","陷"], "天同": ["旺","陷","利","廟","陷","得","旺","陷","利","廟","陷","得"], "廉貞": ["廟","利","廟","陷","旺","廟","廟","利","廟","陷","旺","廟"], "天府": ["廟","廟","得","利","廟","陷","廟","廟","得","利","廟","陷"], "太陰": ["廟","廟","陷","陷","陷","陷","陷","得","旺","廟","廟","廟"], "貪狼": ["廟","廟","陷","利","廟","陷","廟","廟","陷","利","廟","陷"], "巨門": ["旺","廟","陷","得","旺","陷","廟","廟","陷","得","旺","陷"], "天相": ["廟","廟","得","陷","廟","得","廟","廟","得","陷","廟","得"], "天梁": ["廟","廟","旺","陷","廟","旺","廟","廟","旺","陷","廟","旺"], "七殺": ["廟","廟","得","陷","旺","廟","廟","廟","得","陷","旺","廟"], "破軍": ["廟","廟","陷","陷","旺","陷","廟","廟","陷","陷","旺","陷"] };
-
         function saveApiSettings() {
             localStorage.setItem('田禾宮_apiKey', document.getElementById('apiKey').value);
             localStorage.setItem('田禾宮_apiUrl', document.getElementById('apiUrl').value);
         }
-
-        window.onload = () => {
-            document.getElementById('apiKey').value = localStorage.getItem('田禾宮_apiKey') || "";
-            document.getElementById('apiUrl').value = localStorage.getItem('田禾宮_apiUrl') || "";
-            initDaysLogic();
-        };
 
         function solarToLunar(y, m, d) {
             const baseDate = new Date(1900, 0, 31);
@@ -351,12 +342,6 @@
                 offset -= tempDays;
             }
             return [lYear, finalMonth, offset + 1, false];
-        }
-
-        function getStemBranch(year) {
-            const stem = STEMS[(year - 4) % 10];
-            const branch = BRANCHES[(year - 4) % 12];
-            return stem + branch;
         }
 
         class ZiWeiEngine {
@@ -416,11 +401,9 @@
             const day = parseInt(document.getElementById('day').value);
             const hourIdx = parseInt(document.getElementById('hour').value);
             if (!year) { alert("請輸入年份"); return; }
-            
             const lDate = solarToLunar(year, month, day);
             const engine = new ZiWeiEngine();
             const { palaces, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
-            
             renderChart(palaces);
             renderAnalysis(name, lDate, palaces, lifePos);
             document.getElementById('result').classList.add('active');
@@ -433,7 +416,6 @@
             const posMap = [{p:3,r:0,c:0},{p:4,r:0,c:1},{p:5,r:0,c:2},{p:6,r:0,c:3},{p:2,r:1,c:3},{p:1,r:2,c:3},{p:0,r:3,c:3},{p:11,r:3,c:2},{p:10,r:3,c:1},{p:9,r:3,c:0},{p:8,r:2,c:0},{p:7,r:1,c:0}];
             const grid = Array(4).fill().map(() => Array(4).fill(null));
             posMap.forEach(pos => { grid[pos.r][pos.c] = palaces[pos.p]; });
-            
             for (let r = 0; r < 4; r++) {
                 for (let c = 0; c < 4; c++) {
                     if (r === 1 && c === 1) {
@@ -464,7 +446,6 @@
             const bStem = STEMS[(ly - 4) % 10];
             const thisY = new Date().getFullYear();
             currentMetadata = { name, lDate, stars: ps[lifePos].main_stars.length > 0 ? ps[lifePos].main_stars : ps[(lifePos+6)%12].main_stars, thisY };
-            
             let html = `
                 <div class="analysis-header"><h2>田 禾 宮 ・ 深度詳批報告</h2></div>
                 <div class="info-box"><table>
@@ -472,7 +453,6 @@
                     <tr><td><b>命主星：</b><span class="highlight">${currentMetadata.stars.join('、')}</span></td><td><b>當前流年環境：</b>西元 ${thisY} (${getStemBranch(thisY)}) 年</td></tr>
                 </table></div>
             `;
-
             currentMetadata.stars.forEach(s => {
                 const info = STAR_DB[s]; if(!info) return;
                 html += `
@@ -491,23 +471,42 @@
         }
 
         async function triggerAIAnalysis() {
-            const url = document.getElementById('apiUrl').value.trim();
+            let url = document.getElementById('apiUrl').value.trim();
             const key = document.getElementById('apiKey').value.trim();
             if (!url) { alert("請輸入 Local API URL"); return; }
+            
+            // --- URL 自動補完邏輯 ---
+            if (!url.includes("/v1/chat/completions")) {
+                if (url.endsWith("/")) url = url.slice(0, -1);
+                if (url.endsWith("/v1")) url += "/chat/completions";
+                else url += "/v1/chat/completions";
+            }
+
             const resDiv = document.getElementById('aiResult');
             resDiv.innerHTML = "";
             document.getElementById('aiProgressWrapper').style.display = 'block';
             let progress = 0;
             pInterval = setInterval(() => { if(progress < 90) { progress += 2; document.getElementById('aiProgressBar').style.width = progress + '%'; } }, 200);
 
-            const prompt = `你是紫微斗數大師「田禾宮主」。緣主${currentMetadata.name}，出生於農曆${currentMetadata.lDate[0]}年，主星為${currentMetadata.stars.join('、')}。請針對 ${currentMetadata.thisY} 年 (${getStemBranch(currentMetadata.thisY)}年) 的流年運勢提供 1200 字深度分析報告，內容嚴禁精簡。`;
+            const prompt = `你是紫微斗數大師「田禾宮主」。緣主${currentMetadata.name}，出生於農曆${currentMetadata.lDate[0]}年，主星為${currentMetadata.stars.join('、')}。請針對 ${currentMetadata.thisY} 年 (${getStemBranch(currentMetadata.thisY)}) 的流年運勢提供 1200 字深度分析報告，內容嚴禁精簡。`;
 
             try {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', ...(key && { 'Authorization': `Bearer ${key}` }) },
-                    body: JSON.stringify({ model: "local-model", messages: [{ role: "user", content: prompt }], stream: true })
+                    body: JSON.stringify({ 
+                        model: "local-model", 
+                        messages: [{ role: "user", content: prompt }], 
+                        stream: true,
+                        temperature: 0.7 
+                    })
                 });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`伺服器錯誤 (${response.status}): ${errorText || '請檢查路徑或 API 設定'}`);
+                }
+
                 const reader = response.body.getReader(), decoder = new TextDecoder();
                 let full = "";
                 while (true) {
@@ -528,7 +527,10 @@
                         }
                     }
                 }
-            } catch (e) { resDiv.innerHTML = "❌ 失敗: " + e.message; } finally { clearInterval(pInterval); setTimeout(() => { document.getElementById('aiProgressWrapper').style.display = 'none'; }, 500); }
+            } catch (e) { 
+                clearInterval(pInterval);
+                resDiv.innerHTML = `<span style="color:red;">❌ 推演失敗: ${e.message}</span><br><br><small>提示：請確認您的伺服器（如 LM Studio）是否開啟，且 URL 是否包含 http:// 並指向正確的連接埠（預設 1234）。</small>`; 
+            } finally { clearInterval(pInterval); setTimeout(() => { document.getElementById('aiProgressWrapper').style.display = 'none'; }, 500); }
         }
 
         function initDaysLogic() {
@@ -544,11 +546,6 @@
         document.getElementById('month').addEventListener('change', initDaysLogic);
         document.getElementById('year').addEventListener('change', initDaysLogic);
         initDaysLogic();
-
-        function saveApiSettings() {
-            localStorage.setItem('田禾宮_apiKey', document.getElementById('apiKey').value);
-            localStorage.setItem('田禾宮_apiUrl', document.getElementById('apiUrl').value);
-        }
     </script>
 </body>
 </html>
