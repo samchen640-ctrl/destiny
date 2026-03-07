@@ -2,129 +2,139 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>田禾宮・紫微命盤排版系統</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; line-height: 1.6; }
         
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 15px; }
         
-        /* 標題區塊 */
+        /* 標題區塊 - 行動優化 */
         .header { 
-            margin-bottom: 30px; padding: 50px 30px; 
+            margin-bottom: 20px; padding: 30px 15px; 
             background: linear-gradient(135deg, #A62C2B 0%, #801C1B 100%); 
-            border-radius: 24px; color: #F5E6BE; 
+            border-radius: 16px; color: #F5E6BE; 
             box-shadow: 0 10px 30px rgba(166, 44, 43, 0.2);
-            display: flex; align-items: center; justify-content: center; gap: 50px; 
+            display: flex; align-items: center; justify-content: center; gap: 20px; 
         }
         .header img { 
-            width: 240px; height: auto; border-radius: 25px;
-            border: 5px solid #F5E6BE; background: white; padding: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            width: 100px; height: auto; border-radius: 12px;
+            border: 3px solid #F5E6BE; background: white; padding: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .header-text { text-align: left; }
-        .header h1 { font-size: 56px; letter-spacing: 15px; margin-bottom: 8px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .header p { font-size: 24px; letter-spacing: 5px; opacity: 0.9; }
+        .header h1 { font-size: 32px; letter-spacing: 5px; margin-bottom: 4px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 14px; letter-spacing: 2px; opacity: 0.9; }
         
         /* API 設定區 */
         .api-config {
-            background: #fdf2f2; padding: 20px 30px; border-radius: 15px; border: 1px solid #ebccd1;
-            margin-bottom: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 15px;
+            background: #fdf2f2; padding: 15px; border-radius: 12px; border: 1px solid #ebccd1;
+            margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
             box-shadow: 0 4px 10px rgba(166, 44, 43, 0.05);
         }
-        .api-group { flex: 1; min-width: 300px; display: flex; align-items: center; gap: 10px; }
-        .api-config label { font-weight: bold; color: #a62c2b; font-size: 14px; white-space: nowrap; }
-        .api-config input { flex: 1; padding: 10px; border: 1px solid #d1c4b2; border-radius: 8px; font-size: 14px; }
-        .api-tip { width: 100%; font-size: 12px; color: #888; margin-top: 5px; }
+        .api-group { flex: 1; min-width: 250px; display: flex; align-items: center; gap: 8px; }
+        .api-config label { font-weight: bold; color: #a62c2b; font-size: 13px; white-space: nowrap; }
+        .api-config input { flex: 1; padding: 8px; border: 1px solid #d1c4b2; border-radius: 6px; font-size: 13px; }
+        .api-tip { width: 100%; font-size: 11px; color: #888; margin-top: 2px; }
 
         /* 輸入區塊 */
-        .input-section { background: #FFFFFF; padding: 35px; border-radius: 15px; border: 2px solid #A62C2B; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .input-section h2 { color: #A62C2B; margin-bottom: 25px; font-size: 24px; border-left: 6px solid #A62C2B; padding-left: 15px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .input-section { background: #FFFFFF; padding: 20px; border-radius: 12px; border: 2px solid #A62C2B; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .input-section h2 { color: #A62C2B; margin-bottom: 20px; font-size: 20px; border-left: 5px solid #A62C2B; padding-left: 12px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; }
-        .form-group label { font-weight: bold; margin-bottom: 10px; color: #555; }
-        .form-group input, .form-group select { padding: 14px; border: 1px solid #D1C4B2; border-radius: 8px; font-size: 16px; transition: all 0.3s; }
+        .form-group label { font-weight: bold; margin-bottom: 6px; color: #555; font-size: 14px; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #D1C4B2; border-radius: 8px; font-size: 15px; transition: all 0.3s; background-color: #fff; }
         
-        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 24px; padding: 22px 40px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 4px; }
-        .btn-calculate:hover { background-color: #C13F3E; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(166, 44, 43, 0.3); }
+        .btn-calculate { background-color: #A62C2B; color: #F5E6BE; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; padding: 15px 20px; cursor: pointer; transition: all 0.3s; width: 100%; letter-spacing: 2px; }
+        .btn-calculate:active { transform: scale(0.98); background-color: #801C1B; }
         
+        /* 命盤圖形 - 手機端支援滑動 */
         .result-section { display: none; }
         .result-section.active { display: block; animation: fadeIn 0.8s ease-out; }
         
-        /* 命盤圖形 */
-        .chart-container { background: #F4EBE2; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); overflow-x: auto; }
-        .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 12px; min-width: 900px; max-width: 1000px; margin: 0 auto; }
+        .chart-container { 
+            background: #F4EBE2; border-radius: 16px; padding: 15px; margin-bottom: 30px; 
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05); 
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+        }
+        .chart-grid { 
+            display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); 
+            gap: 8px; min-width: 850px; max-width: 1000px; margin: 0 auto; 
+        }
         
-        .palace { background: #FFF8F2; border: 2px solid #A62C2B; border-radius: 12px; padding: 12px; min-height: 205px; position: relative; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between;}
-        .palace:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 30px rgba(166, 44, 43, 0.2); }
-        .palace.life-palace { background: #FFF0F0; border-width: 4px; border-color: #A62C2B; }
+        .palace { background: #FFF8F2; border: 1.5px solid #A62C2B; border-radius: 8px; padding: 8px; min-height: 190px; position: relative; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;}
+        .palace.life-palace { background: #FFF0F0; border-width: 3px; border-color: #A62C2B; }
         
-        .palace-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #E0D5C1; padding-bottom: 6px; margin-bottom: 8px; }
-        .palace-name { font-weight: bold; font-size: 22px; color: #A62C2B; }
-        .body-tag { font-size: 13px; color: #D4AF37; font-weight: bold; background: #FFF; padding: 1px 5px; border-radius: 4px; border: 1px solid #D4AF37; }
+        .palace-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #E0D5C1; padding-bottom: 4px; margin-bottom: 6px; }
+        .palace-name { font-weight: bold; font-size: 18px; color: #A62C2B; }
+        .body-tag { font-size: 11px; color: #D4AF37; font-weight: bold; background: #FFF; padding: 1px 4px; border-radius: 4px; border: 1px solid #D4AF37; }
 
-        .palace-main { flex-grow: 1; display: flex; gap: 8px; }
-        .main-stars { display: flex; flex-direction: column; font-size: 18px; color: #A62C2B; line-height: 1.3; font-weight: bold; width: 60%; }
-        .star-item { display: flex; align-items: center; gap: 3px; }
-        .star-brightness { font-size: 11px; color: #8E7341; font-weight: normal; }
+        .palace-main { flex-grow: 1; display: flex; gap: 4px; }
+        .main-stars { display: flex; flex-direction: column; font-size: 16px; color: #A62C2B; line-height: 1.2; font-weight: bold; width: 60%; }
+        .star-item { display: flex; align-items: center; gap: 2px; }
+        .star-brightness { font-size: 10px; color: #8E7341; font-weight: normal; }
         
-        .sec-stars { width: 40%; font-size: 12px; color: #666; text-align: right; display: flex; flex-direction: column; gap: 2px; }
+        .sec-stars { width: 40%; font-size: 11px; color: #666; text-align: right; display: flex; flex-direction: column; gap: 1px; }
         
-        .palace-bottom { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #E0D5C1; padding-top: 6px; margin-top: 4px; }
-        .palace-si-hua { font-size: 10px; color: #8E7341; font-weight: bold; max-width: 65%; line-height: 1.1; }
-        .stem-branch { font-size: 18px; font-weight: bold; color: #8E7341; }
-        .age-range { font-size: 12px; color: #777; font-family: Consolas, monospace; }
+        .palace-bottom { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #E0D5C1; padding-top: 4px; margin-top: 4px; }
+        .palace-si-hua { font-size: 9px; color: #8E7341; font-weight: bold; max-width: 60%; line-height: 1.1; }
+        .stem-branch { font-size: 16px; font-weight: bold; color: #8E7341; }
+        .age-range { font-size: 10px; color: #777; font-family: Consolas, monospace; display: block; }
         
-        .center-palace { background: white; border: 6px double #A62C2B; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 64px; color: #A62C2B; font-weight: bold; grid-column: span 2; grid-row: span 2; letter-spacing: 25px; line-height: 1.5; text-align: center;}
+        .center-palace { background: white; border: 4px double #A62C2B; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 42px; color: #A62C2B; font-weight: bold; grid-column: span 2; grid-row: span 2; letter-spacing: 15px; line-height: 1.3; text-align: center;}
         
-        /* 分析報告區塊 */
-        .analysis-content { background: #FFFEFA; padding: 60px; border-radius: 24px; border: 1px solid #E0D5C1; max-width: 1050px; margin: 0 auto; box-shadow: 0 15px 50px rgba(0,0,0,0.05); }
-        .analysis-header { text-align: center; margin-bottom: 50px; border-bottom: 5px solid #A62C2B; padding-bottom: 30px; }
-        .analysis-header h2 { color: #A62C2B; font-size: 38px; letter-spacing: 8px; margin-bottom: 15px; }
+        /* 分析報告區塊 - 行動優化 */
+        .analysis-content { background: #FFFEFA; padding: 30px 15px; border-radius: 16px; border: 1px solid #E0D5C1; max-width: 1000px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .analysis-header { text-align: center; margin-bottom: 30px; border-bottom: 4px solid #A62C2B; padding-bottom: 15px; }
+        .analysis-header h2 { color: #A62C2B; font-size: 26px; letter-spacing: 4px; margin-bottom: 8px; }
         
-        .section-title { color: #FFF; background: #A62C2B; padding: 22px 30px; border-radius: 12px 12px 0 0; font-size: 24px; letter-spacing: 4px;}
-        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 45px; border-radius: 0 0 12px 12px; line-height: 2.2; font-size: 18px; margin-bottom: 50px; }
+        .section-title { color: #FFF; background: #A62C2B; padding: 15px 20px; border-radius: 10px 10px 0 0; font-size: 19px; letter-spacing: 2px;}
+        .section-content { background: #FFF; border: 1px solid #A62C2B; padding: 25px 15px; border-radius: 0 0 10px 10px; line-height: 1.8; font-size: 16px; margin-bottom: 35px; }
         
-        .quote { color: #7B5E26; font-style: italic; border-bottom: 3px solid #FDFBEE; padding-bottom: 25px; margin-bottom: 40px; font-size: 22px; line-height: 1.8; text-align: center; }
+        .quote { color: #7B5E26; font-style: italic; border-bottom: 2px solid #FDFBEE; padding-bottom: 15px; margin-bottom: 20px; font-size: 18px; line-height: 1.6; text-align: center; font-weight: 500;}
         
-        .analysis-item { margin-bottom: 45px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 30px; }
-        .analysis-item b { color: #A62C2B; font-size: 22px; display: block; margin-bottom: 18px; border-left: 8px solid #A62C2B; padding-left: 18px; }
+        .analysis-item { margin-bottom: 30px; border-bottom: 1px dashed #E0D5C1; padding-bottom: 15px; }
+        .analysis-item b { color: #A62C2B; font-size: 18px; display: block; margin-bottom: 12px; border-left: 6px solid #A62C2B; padding-left: 12px; }
         
-        .info-box { background-color: #FDFBEE; padding: 40px; border-radius: 15px; border: 1.5px solid #D4AF37; margin-bottom: 50px; }
-        .info-box table { width: 100%; font-size: 22px; border-collapse: collapse; }
-        .info-box td { padding: 15px; }
+        .info-box { background-color: #FDFBEE; padding: 20px; border-radius: 12px; border: 1px solid #D4AF37; margin-bottom: 30px; }
+        .info-box table { width: 100%; font-size: 15px; border-collapse: collapse; }
+        .info-box td { padding: 8px; }
         .highlight { color: #A62C2B; font-weight: bold; }
         
         /* AI 分析與進度條樣式 */
-        .ai-section { margin-top: 60px; padding: 40px; background: #fdf2f2; border: 2px dashed #A62C2B; border-radius: 24px; }
-        .ai-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
-        .ai-title { font-size: 28px; color: #A62C2B; display: flex; align-items: center; gap: 10px; }
-        .ai-btn { background: #A62C2B; color: #F5E6BE; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .ai-btn:hover:not(:disabled) { background: #C13F3E; }
-        .ai-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .ai-section { margin-top: 40px; padding: 20px; background: #fdf2f2; border: 2px dashed #A62C2B; border-radius: 16px; }
+        .ai-header { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .ai-title { font-size: 20px; color: #A62C2B; display: flex; align-items: center; gap: 8px; }
+        .ai-btn { background: #A62C2B; color: #F5E6BE; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; width: 100%; font-size: 16px; }
         
-        .progress-container { width: 100%; background: #E0D5C1; height: 12px; border-radius: 10px; overflow: hidden; margin: 20px 0; display: none; border: 1px solid #A62C2B; }
+        .progress-container { width: 100%; background: #E0D5C1; height: 10px; border-radius: 10px; overflow: hidden; margin: 15px 0; display: none; border: 1px solid #A62C2B; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #A62C2B 0%, #D4AF37 100%); transition: width 0.4s ease; }
-        .progress-status { font-size: 14px; color: #8E7341; text-align: center; margin-top: 10px; font-weight: bold; display: none; }
+        .progress-status { font-size: 13px; color: #8E7341; text-align: center; margin-top: 5px; font-weight: bold; display: none; }
 
-        .ai-result { background: white; padding: 30px; border-radius: 12px; min-height: 100px; line-height: 1.8; color: #444; border: 1px solid #E0D5C1; white-space: pre-wrap; font-size: 18px; }
+        .ai-result { background: white; padding: 15px; border-radius: 8px; min-height: 80px; line-height: 1.7; color: #444; border: 1px solid #E0D5C1; white-space: pre-wrap; font-size: 15px; }
         
-        @media (max-width: 992px) {
-            .header { flex-direction: column; text-align: center; gap: 20px; }
-            .header img { width: 180px; }
-            .chart-grid { grid-template-columns: repeat(2, 1fr); min-width: auto; }
-            .center-palace { grid-column: span 2; grid-row: auto; order: -1; min-height: 160px; font-size: 42px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; text-align: center; padding: 20px 10px; gap: 10px; }
+            .header img { width: 80px; }
+            .header h1 { font-size: 28px; }
+            .api-group { min-width: 100%; }
+            .analysis-content { padding: 20px 10px; }
+            .section-content { padding: 15px 10px; font-size: 15px; }
+            .info-box td { display: block; width: 100%; padding: 4px 8px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg">
+            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23A62C2B%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F5E6BE%22%20font-size%3D%2280%22%3E田%3C%2Ftext%3E%3C%2Fsvg%3E'">
             <div class="header-text">
                 <h1>田 禾 宮</h1>
-                <p>專業紫微命盤排版系統 (自動流年偵測版)</p>
+                <p>專業紫微命盤排版系統 (行動優化版)</p>
             </div>
         </div>
 
@@ -137,7 +147,7 @@
                 <label>🔑 API Key (選填):</label>
                 <input type="password" id="apiKey" placeholder="若本地伺服器需要 Token 請填入" onchange="saveApiSettings()">
             </div>
-            <div class="api-tip">* 已修復年份邏輯，預設追蹤系統當前西元年份。AI 深度解析文本已全數還原。</div>
+            <div class="api-tip">* 手機版支援橫向滑動命盤。AI 深度解析文本已全數還原。</div>
         </div>
         
         <div class="input-section">
@@ -173,12 +183,15 @@
         </div>
         
         <div class="result-section" id="result">
-            <div class="chart-container"><div class="chart-grid" id="chartGrid"></div></div>
+            <div class="chart-container">
+                <div class="chart-grid" id="chartGrid"></div>
+            </div>
+            
             <div class="analysis-content" id="analysisContent"></div>
 
             <div class="ai-section">
                 <div class="ai-header">
-                    <div class="ai-title">✨ AI 天機神算深度詳解 (即時串流輸出)</div>
+                    <div class="ai-title">✨ AI 天機神算深度詳解 (串流輸出)</div>
                     <button class="ai-btn" id="aiBtn" onclick="triggerAIAnalysis()">點此生成 AI 專屬分析報告</button>
                 </div>
                 <div id="aiProgressWrapper" class="progress-container"><div id="aiProgressBar" class="progress-bar"></div></div>
@@ -189,6 +202,7 @@
     </div>
 
     <script>
+        // 常量定義 - 禁止修改
         const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
         const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
         
@@ -218,7 +232,7 @@
         const SI_HUA_DATA = {"甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌", "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌", "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌", "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌", "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"};
         const BRIGHTNESS = { "紫微": ["廟","廟","旺","利","廟","旺","廟","得","廟","得","旺","廟"], "天機": ["廟","陷","廟","旺","陷","得","廟","陷","廟","旺","陷","得"], "太陽": ["陷","陷","旺","廟","廟","旺","廟","得","得","陷","陷","陷"], "武曲": ["旺","廟","得","利","廟","陷","旺","廟","得","利","廟","陷"], "天同": ["旺","陷","利","廟","陷","得","旺","陷","利","廟","陷","得"], "廉貞": ["廟","利","廟","陷","旺","廟","廟","利","廟","陷","旺","廟"], "天府": ["廟","廟","得","利","廟","陷","廟","廟","得","利","廟","陷"], "太陰": ["廟","廟","陷","陷","陷","陷","陷","得","旺","廟","廟","廟"], "貪狼": ["廟","廟","陷","利","廟","陷","廟","廟","陷","利","廟","陷"], "巨門": ["旺","廟","陷","得","旺","陷","廟","廟","陷","得","旺","陷"], "天相": ["廟","廟","得","陷","廟","得","廟","廟","得","陷","廟","得"], "天梁": ["廟","廟","旺","陷","廟","旺","廟","廟","旺","陷","廟","旺"], "七殺": ["廟","廟","得","陷","旺","廟","廟","廟","得","陷","旺","廟"], "破軍": ["廟","廟","陷","陷","旺","陷","廟","廟","陷","陷","旺","陷"] };
 
-        // 完整大師解析文本 - 不精簡
+        // 完整大師解析文本 - 禁止精簡
         const STAR_DB = {
             "紫微": { 
                 "intro": "紫微星為北斗之主，至尊之星。主掌地位、權力、尊榮與自我管理。其性格特質通常表現為高傲、自尊心極強，具有極佳的資源整合力與天生的領袖風範，如同古代帝王般追求卓越，不甘人後。", 
@@ -231,7 +245,7 @@
             "天機": { 
                 "intro": "天機星為南斗之首，智慧之星。主掌智慧、策劃、邏輯分析與快速變動。心性慈悲且思維極其敏捷，是智庫型的核心靈魂，擅長在動盪的環境中尋找秩序，具備極強的適應力與觀察力。", 
                 "career": "適合資訊科技、企劃研發、高端顧問或任何需要高度邏輯推理與創意發揮的專業領域。你不擅長枯燥且重複的體力勞動，更傾向於解決複雜的系統流程問題。由於心思多變且觀察力強，在職涯中應專注於深耕一門核心技術，避免因好奇心過廣而博而不精。在職場上因反應極快常得長官青睞與提攜。", 
-                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優柔寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
+                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優優寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
                 "social": "觀察入微，能迅速捕捉他人情緒的細微變化，在朋友圈中是極佳的傾聽者與解惑軍師。異性緣帶有濃厚的文藝氣息與智慧色彩。情感世界極其細膩，但也容易因過於敏感而產生無謂的自我內耗。擇偶對象偏好能與自己在靈魂與精神領域產生對話與深度共鳴的人。", 
                 "health": "主掌神經系統、肝膽機能。容易因大腦運作過度而患有焦慮、失眠或偏頭痛。建議建立嚴格的規律作息，並增加有助於緩解神經緊張的戶外活動，如登山或慢跑。應減少攝取咖啡因，重視肝臟的排毒功能，維持內分泌系統的平衡。", 
                 "annual": "【智慧轉型年】環境變動劇烈，需利用您天賦的敏捷思維應對挑戰。今年有利於證照取得、高端研發或跨領域合作。變動中藏有機遇，只要不被外界紛擾影響核心方向，會有顯著突破。" 
@@ -318,9 +332,9 @@
             },
             "七殺": { 
                 "intro": "七殺星為南斗將星之首。主掌瞬間爆發力、決斷、獨立與變革。性格剛烈獨立，具備極強生存意志，是不畏挑戰的先鋒鬥士，勇氣過人。", 
-                "career": "適合創業開拓、前線銷售對抗、高難度技術攻關或軍警執法。不耐受傳統框架與瑣碎行政的束縛，追求瞬間的決斷成就感。適合在動盪、高度競爭的藍海環境中爭取市場佔有率。要注意磨練長遠耐心，避免因一時的情緒衝動或孤注一擲而毀棄了之前的長遠佈局。", 
+                "career": "適合創業開拓、前線銷售對抗、高難度技術攻關或軍警執法。不耐受傳統框架與瑣碎行政的束縛，追求瞬間的決斷成就感. 適合在動盪、高度競爭的藍海環境中爭取市場佔有率。要注意磨練長遠耐心，避免因一時的情緒衝動或孤注一擲而毀棄了之前的長遠佈局。", 
                 "wealth": "財富具有顯著的冒險性與大起大落特質，財運隨事業成敗劇烈波動。理財風格激進大膽，容易在短時間內獲取鉅額利潤，但也常伴隨對等的風險損失。師父建議在中年後將資金交予專業保守機構代管。正財運不穩定，宜專注於高獲利核心項目。需嚴防意外性損財。", 
-                "social": "愛恨分明，對朋友肝膽相照，重義氣。不屑虛偽應酬社交，戰友通常就是最好的朋友。在情緣中主導慾極強，容易發生一見鍾情式的情感噴發。擇偶傾向性格堅毅、能給予自己足夠自由空間與尊重的伴侶。情路起伏多波折，需嚴防衝動下的情感與婚姻決策。", 
+                "social": "愛恨分明，對朋友肝膽照，重義氣。不屑虛偽應酬社交，戰友通常就是最好的朋友。在情緣中主導慾極強，容易發生一見鍾情式的情感噴發。擇偶傾向性格堅毅、能給予自己足夠自由空間與尊重的伴侶。情路起伏多波折，需嚴防衝動下的情感與婚姻決策。", 
                 "health": "主掌肺部呼吸道、大腸機能與意外外傷防護。因過度體力消耗與神經高度緊繃，需防範呼吸道慢性發炎或嚴重的運動、意外受傷。建議學習瑜伽、太極或深度呼吸訓練以中和過於剛強的磁場。保養重點在於肺氣的滋養，應遠離空氣污染與極端壓力環境。", 
                 "annual": "【開拓進取年】今年能量異常充沛，利於啟動擱置已久的宏大開拓計畫。這一年適合大刀闊斧的徹底變革。只要在細節上多加覆核，避免盲目躁進，下半年將有里程碑式的跨越成長與收獲。" 
             },
@@ -336,6 +350,7 @@
 
         const LINKAGE_DB = { "紫微天府": "【紫府同宮格】兩大主星同坐，格局宏大，權力穩定。", "太陽巨門": "【巨日同臨格】太陽光芒驅散巨門猜疑，利於異鄉發展。", "武曲貪狼": "【武貪同行格】大器晚成，能量爆發力強。", "天機太陰": "【機月同臨格】思維極其縝密，具備極強企劃天賦。", "廉貞天相": "【廉相守命格】法規感與公關手腕兼具。", "紫微貪狼": "【桃花犯主格】人際魅力旺盛，需注意慾望節制。" };
 
+        // 核心邏輯 - 禁止修改
         function saveApiSettings() {
             localStorage.setItem('田禾宮_apiKey', document.getElementById('apiKey').value);
             localStorage.setItem('田禾宮_apiUrl', document.getElementById('apiUrl').value);
@@ -579,8 +594,15 @@
             const dSel = document.getElementById('day');
             const m = parseInt(document.getElementById('month').value), y = parseInt(document.getElementById('year').value);
             const days = new Date(y, m, 0).getDate();
+            const currentDay = parseInt(dSel.value) || 1;
             dSel.innerHTML = '';
-            for (let i = 1; i <= days; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = i + '日'; dSel.appendChild(opt); }
+            for (let i = 1; i <= days; i++) { 
+                const opt = document.createElement('option'); 
+                opt.value = i; 
+                opt.textContent = i + '日'; 
+                if(i === currentDay) opt.selected = true;
+                dSel.appendChild(opt); 
+            }
         }
         document.getElementById('month').addEventListener('change', initDaysLogic);
         document.getElementById('year').addEventListener('change', initDaysLogic);
@@ -588,4 +610,3 @@
     </script>
 </body>
 </html>
-
