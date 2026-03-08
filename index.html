@@ -2,10 +2,10 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>田禾宮・紫微命盤排版系統</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif; background-color: #FDFBF7; color: #2C3E50; min-height: 100vh; }
         
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
@@ -52,8 +52,8 @@
         .result-section { display: none; }
         .result-section.active { display: block; animation: fadeIn 0.8s ease-out; }
         
-        /* 命盤圖形 - 行動裝置滑動優化 */
-        .chart-container { background: #F4EBE2; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        /* 命盤圖形 */
+        .chart-container { background: #F4EBE2; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); overflow-x: auto; }
         .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 12px; min-width: 900px; max-width: 1000px; margin: 0 auto; }
         
         .palace { background: #FFF8F2; border: 2px solid #A62C2B; border-radius: 12px; padding: 12px; min-height: 205px; position: relative; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between;}
@@ -96,51 +96,54 @@
         .info-box td { padding: 15px; }
         .highlight { color: #A62C2B; font-weight: bold; }
         
-        /* AI 解析區塊 */
+        /* AI 分析與進度條樣式 */
         .ai-section { margin-top: 60px; padding: 40px; background: #fdf2f2; border: 2px dashed #A62C2B; border-radius: 24px; }
         .ai-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
         .ai-title { font-size: 28px; color: #A62C2B; display: flex; align-items: center; gap: 10px; }
         .ai-btn { background: #A62C2B; color: #F5E6BE; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .ai-result { background: white; padding: 30px; border-radius: 12px; min-height: 100px; line-height: 1.8; color: #444; border: 1px solid #E0D5C1; white-space: pre-wrap; font-size: 18px; }
+        .ai-btn:hover:not(:disabled) { background: #C13F3E; }
+        .ai-btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .progress-container { width: 100%; background: #E0D5C1; height: 12px; border-radius: 10px; overflow: hidden; margin: 20px 0; display: none; border: 1px solid #A62C2B; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #A62C2B 0%, #D4AF37 100%); transition: width 0.4s ease; }
+        .progress-status { font-size: 14px; color: #8E7341; text-align: center; margin-top: 10px; font-weight: bold; display: none; }
 
+        .ai-result { background: white; padding: 30px; border-radius: 12px; min-height: 100px; line-height: 1.8; color: #444; border: 1px solid #E0D5C1; white-space: pre-wrap; font-size: 18px; }
+        
         @media (max-width: 992px) {
-            .header { flex-direction: column; text-align: center; gap: 20px; padding: 30px 15px; }
-            .header h1 { font-size: 32px; letter-spacing: 5px; }
-            .header img { width: 140px; }
-            .analysis-content { padding: 30px 15px; }
-            .section-content { padding: 25px 15px; font-size: 16px; }
-            .info-box { padding: 20px; }
-            .info-box table { font-size: 16px; }
-            .info-box td { display: block; width: 100%; padding: 5px 0; }
+            .header { flex-direction: column; text-align: center; gap: 20px; }
+            .header img { width: 180px; }
+            .chart-grid { grid-template-columns: repeat(2, 1fr); min-width: auto; }
+            .center-palace { grid-column: span 2; grid-row: auto; order: -1; min-height: 160px; font-size: 42px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23A62C2B%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23F5E6BE%22%20font-size%3D%2280%22%3E田%3C%2Ftext%3E%3C%2Fsvg%3E'">
+            <img src="13.png" alt="田禾宮吉祥物" id="mascotImg">
             <div class="header-text">
                 <h1>田 禾 宮</h1>
-                <p>專業紫微命盤排版系統 (v1.5 完整還原版)</p>
+                <p>專業紫微命盤排版系統 (自動流年偵測版)</p>
             </div>
         </div>
 
         <div class="api-config">
             <div class="api-group">
-                <label>🔗 AI API URL:</label>
-                <input type="text" id="apiUrl" placeholder="例如: https://xxxx.ngrok-free.app" onchange="saveApiSettings()">
+                <label>🔗 Local API URL:</label>
+                <input type="text" id="apiUrl" placeholder="例如: http://localhost:1234/v1/chat/completions" onchange="saveApiSettings()">
             </div>
             <div class="api-group">
-                <label>🔑 API Key:</label>
-                <input type="password" id="apiKey" placeholder="若無設定請留空" onchange="saveApiSettings()">
+                <label>🔑 API Key (選填):</label>
+                <input type="password" id="apiKey" placeholder="若本地伺服器需要 Token 請填入" onchange="saveApiSettings()">
             </div>
-            <div class="api-tip">* 已恢復所有計算邏輯與 STAR_DB 完整文本。針對 ngrok 連線已加入 Header 優化。</div>
+            <div class="api-tip">* 已修復年份邏輯，預設追蹤系統當前西元年份。AI 深度解析文本已全數還原。</div>
         </div>
         
         <div class="input-section">
             <h2>緣主資料錄入</h2>
             <div class="form-grid">
-                <div class="form-group"><label>姓名</label><input type="text" id="name" placeholder="請輸入姓名"></div>
+                <div class="form-group"><label>姓名</label><input type="text" id="name" placeholder="請輸入姓名" value=""></div>
                 <div class="form-group"><label>出生年份 (國曆西元)</label><input type="number" id="year" min="1900" max="2100" value="1987"></div>
                 <div class="form-group">
                     <label>月份</label>
@@ -175,18 +178,20 @@
 
             <div class="ai-section">
                 <div class="ai-header">
-                    <div class="ai-title">✨ AI 天機神算深度詳解</div>
+                    <div class="ai-title">✨ AI 天機神算深度詳解 (即時串流輸出)</div>
                     <button class="ai-btn" id="aiBtn" onclick="triggerAIAnalysis()">點此生成 AI 專屬分析報告</button>
                 </div>
+                <div id="aiProgressWrapper" class="progress-container"><div id="aiProgressBar" class="progress-bar"></div></div>
+                <div id="aiStatusText" class="progress-status">🔮 正在啟動天機推演...</div>
                 <div id="aiResult" class="ai-result">排盤完成後，點擊按鈕獲取由本地 AI 生成的詳盡深度解析。</div>
             </div>
         </div>
     </div>
 
     <script>
-        // 核心數據庫 - 全數還原，禁止修改
         const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
         const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        
         const LUNAR_DATA = [
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
             0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -213,12 +218,12 @@
         const SI_HUA_DATA = {"甲": "廉貞化祿、破軍化權、武曲化科、太陽化忌", "乙": "天機化祿、天梁化權、紫微化科、太陰化忌", "丙": "天同化祿、天機化權、文昌化科、廉貞化忌", "丁": "太陰化祿、天同化權、天機化科、巨門化忌", "戊": "貪狼化祿、太陰化權、右弼化科、天機化忌", "己": "武曲化祿、貪狼化權、天梁化科、文曲化忌", "庚": "太陽化祿、武曲化權、太陰化科、天同化忌", "辛": "巨門化祿、太陽化權、文曲化科、文昌化忌", "壬": "天梁化祿、紫微化權、左輔化科、武曲化忌", "癸": "破軍化祿、巨門化權、太陰化科、貪狼化忌"};
         const BRIGHTNESS = { "紫微": ["廟","廟","旺","利","廟","旺","廟","得","廟","得","旺","廟"], "天機": ["廟","陷","廟","旺","陷","得","廟","陷","廟","旺","陷","得"], "太陽": ["陷","陷","旺","廟","廟","旺","廟","得","得","陷","陷","陷"], "武曲": ["旺","廟","得","利","廟","陷","旺","廟","得","利","廟","陷"], "天同": ["旺","陷","利","廟","陷","得","旺","陷","利","廟","陷","得"], "廉貞": ["廟","利","廟","陷","旺","廟","廟","利","廟","陷","旺","廟"], "天府": ["廟","廟","得","利","廟","陷","廟","廟","得","利","廟","陷"], "太陰": ["廟","廟","陷","陷","陷","陷","陷","得","旺","廟","廟","廟"], "貪狼": ["廟","廟","陷","利","廟","陷","廟","廟","陷","利","廟","陷"], "巨門": ["旺","廟","陷","得","旺","陷","廟","廟","陷","得","旺","陷"], "天相": ["廟","廟","得","陷","廟","得","廟","廟","得","陷","廟","得"], "天梁": ["廟","廟","旺","陷","廟","旺","廟","廟","旺","陷","廟","旺"], "七殺": ["廟","廟","得","陷","旺","廟","廟","廟","得","陷","旺","廟"], "破軍": ["廟","廟","陷","陷","旺","陷","廟","廟","陷","陷","旺","陷"] };
 
-        // STAR_DB 完整版文本 - 嚴禁精簡
+        // 完整大師解析文本 - 不精簡
         const STAR_DB = {
             "紫微": { 
                 "intro": "紫微星為北斗之主，至尊之星。主掌地位、權力、尊榮與自我管理。其性格特質通常表現為高傲、自尊心極強，具有極佳的資源整合力與天生的領袖風範，如同古代帝王般追求卓越，不甘人後。", 
                 "career": "在事業上，您具備天生的開拓與管理潛能，極其適合擔任大型組織的核心決策者、創業者或高端諮詢顧問。在需要處理複雜人際協調、宏觀戰略佈局的崗位上，您能發揮出最大的光芒。雖然才華出眾，但要注意避免獨斷獨行，應學會廣納雅言以補不足。您的職業生涯多與『標準建立』掛鉤，適合在有規模的企業或官方機構中逐級而上。", 
-                "wealth": "財運主貴，錢財多隨社會地位與名譽的提升			而自然而來。您擅長進行資產的大格局配置，理財風格穩重且帶有強烈的品牌意識。需特別注意因好面子或追求高端社交排場所產生的不必要開支。師父建議將資金投入具有長期增值價值的固定資產或高端保值品中。由於對小額盈虧較不在意，建議建立系統化的財務記帳習慣。", 
+                "wealth": "財運主貴，錢財多隨社會地位與名譽的提升而自然而來。您擅長進行資產的大格局配置，理財風格穩重且帶有強烈的品牌意識。需特別注意因好面子或追求高端社交排場所產生的不必要開支。師父建議將資金投入具有長期增值價值的固定資產或高端保值品中。由於對小額盈虧較不在意，建議建立系統化的財務記帳習慣。", 
                 "social": "社交圈層次極高，身邊多為社會菁英或各領域的高層人士。在友誼中通常扮演保護者與引導者的角色。異性緣佳，容易吸引那些對強勢、智慧對象有天然崇拜感的人。情緣發展多趨於穩定，擇偶對象極其重視門當戶對與對方的社會評價。在感情中較為強勢，需給予伴侶足夠的尊重與彈性空間。", 
                 "health": "主掌脾胃與心腦血管系統。因長期處於高壓決策狀態與對完美的偏執追求，應防範中風、高血壓或長期神經緊繃導致的消化系統功能失調。建議培養如靜坐、遠足、冥想等放鬆神經的長期愛好。日常飲食應以清淡為主，維持血液品質的健康與流動性。", 
                 "annual": "【地位鞏固年】今年是展現您領袖特質的最佳時機，極其有利於職位的實質躍遷與名聲遠播。即便遇到環境阻礙，只要堅守誠信原則並結合團隊力量，最終必能迎刃而解。" 
@@ -226,7 +231,7 @@
             "天機": { 
                 "intro": "天機星為南斗之首，智慧之星。主掌智慧、策劃、邏輯分析與快速變動。心性慈悲且思維極其敏捷，是智庫型的核心靈魂，擅長在動盪的環境中尋找秩序，具備極強的適應力與觀察力。", 
                 "career": "適合資訊科技、企劃研發、高端顧問或任何需要高度邏輯推理與創意發揮的專業領域。你不擅長枯燥且重複的體力勞動，更傾向於解決複雜的系統流程問題。由於心思多變且觀察力強，在職涯中應專注於深耕一門核心技術，避免因好奇心過廣而博而不精。在職場上因反應極快常得長官青睞與提攜。", 
-                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優優寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
+                "wealth": "財運主『變動』。錢財常來自知識變現、技術紅利或波段性投資。理財風格敏捷，對新商機反應極快。需防範思慮過度導致在關鍵投資決策時優柔寡斷，錯失良機。建議財務管理採取多角化分散配置以降低風險，且應遠離高槓桿的博弈性投資。您的財富積累厚度取決於您知識更新與學習的速度。", 
                 "social": "觀察入微，能迅速捕捉他人情緒的細微變化，在朋友圈中是極佳的傾聽者與解惑軍師。異性緣帶有濃厚的文藝氣息與智慧色彩。情感世界極其細膩，但也容易因過於敏感而產生無謂的自我內耗。擇偶對象偏好能與自己在靈魂與精神領域產生對話與深度共鳴的人。", 
                 "health": "主掌神經系統、肝膽機能。容易因大腦運作過度而患有焦慮、失眠或偏頭痛。建議建立嚴格的規律作息，並增加有助於緩解神經緊張的戶外活動，如登山或慢跑。應減少攝取咖啡因，重視肝臟的排毒功能，維持內分泌系統的平衡。", 
                 "annual": "【智慧轉型年】環境變動劇烈，需利用您天賦的敏捷思維應對挑戰。今年有利於證照取得、高端研發或跨領域合作。變動中藏有機遇，只要不被外界紛擾影響核心方向，會有顯著突破。" 
@@ -266,9 +271,9 @@
             "天府": { 
                 "intro": "天府星為南斗主星，財庫之司。主守成、穩健、包容與資源整合。性格沉穩可靠，具備天生的管理長才與深厚的守護意識，是穩定的核心。", 
                 "career": "適合高端行政管理、金融銀行、大型房產開發或穩健型跨國企業。處事周全細緻，深得團隊部屬信賴，具備極佳的大局觀與資源分配能力。由於性格趨向於安全第一，有時會顯得墨守成規，應適時學習新技術與新觀念。您在職場上是最好的行政支柱，適合處理需要極大耐心的長線穩定專案。", 
-                "wealth": "財運穩定且具備強大的持續積累能力，是典型的『財庫星』。擅長規律儲蓄、不動產購置與低風險保值型投資。理財風格保守求穩，呈現穩定的階梯式上升。您具備『存錢』的天性，但師父建議應適度投資於人際網路與自我成長，讓資產流動起來。", 
+                "wealth": "財運穩定且具備強大的持續積累能力，是典型的『財庫星』。擅長規律儲蓄、不動產購置與低風險保值型投資。理財風格保守求穩，生活品質要求高雅但不奢靡。財富呈現穩定的階梯式上升。您具備『存錢』的天性，但師父建議應適度投資於人際網路與自我成長，讓資產流動起來。", 
                 "social": "寬厚慈祥，社交圈層次分明且極其穩定。在關係中扮演守護者與引導者的角色，是他人依賴的避風港。擇偶重視社會地位的對等、性格穩定性與家庭觀。情緣通常穩定且長久。社交場合中具備天然的威嚴與說服力。情緣多來自長輩介紹或穩定的職場環境。", 
-                "health": "主掌消化系統、脾胃與代謝機能。因天生重視食補與享受美食，需防範腸胃負擔過重、消化不良或代謝緩慢導致的慢性代謝疾病。建議維持少油少鹽的清淡飲食與規律進餐。保養重點在於脾臟與胃部的养护，日常應盡量避免冰冷飲品。", 
+                "health": "主掌消化系統、脾胃與代謝機能。因天生重視食補與享受美食，需嚴格防範腸胃負擔過重、消化不良或代謝緩慢導致的慢性代謝疾病。建議維持少油少鹽的清淡飲食與規律進餐。保養重點在於脾臟與胃部的养护，日常應盡量避免冰冷飲品。", 
                 "annual": "【穩健積累年】今年不宜進行跨度太大、高風險的盲目開拓，適合優化與盤點現有資產。家宅運勢旺盛，非常利於改善居住環境、裝修或進行不動產的長線佈局。貴人多來自於家族長輩或資深權威。" 
             },
             "太陰": { 
@@ -307,7 +312,7 @@
                 "intro": "天梁星為南斗長壽之星，蔭庇之神。主掌慈悲、化解、長者風範與孤高。性格成熟穩重，具備將危難化為轉機的奇蹟能量，是化難之星。", 
                 "career": "適合教育研發、醫療護理、公益慈善、法律審核或任何帶有『解決大麻煩』特質的諮詢工作。你是團隊中的定海神針，具有極高公信力。適合在非營利組織或政府監管單位發展。要注意有時過於好為人師而顯得與年輕輩隔閡。能靠長期建立的聲譽與專業權威獲利。", 
                 "wealth": "財運帶有顯著的『後福』與『長輩提攜』特質。錢財多來自長輩贈與、祖產傳承、保險賠償或長年深耕專業後的技術紅利。理財心態極度保守安全。對金錢態度相對淡泊，但這份淡泊反而常吸引穩定的財源注入。建議配置保本型資產或ESG永續投資標的。", 
-                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。", 
+                "social": "人際關係具備長者色彩，公正無私但有時顯得孤高。在感情中通常扮演全方位的照顧者與心靈導師。擇偶傾向於傳統、顧家、孝順且性格溫柔的對象。需學習放軟身段，增加情感共鳴而非道理灌輸。社交圈中常是排解紛紛爭的終極仲裁者。情緣中具備蔭庇伴侶的力量。", 
                 "health": "主掌消化系統、骨骼系統與整體免疫力。雖主長壽，但容易患有慢性關節炎症、脾胃虛寒或骨質疏鬆。建議增加適度的骨質鍛鍊（如快走），並重視溫補藥膳的節氣調理。保養重點在於脊椎關節的定期伸展與保護，不宜維持同一姿勢過久。", 
                 "annual": "【逢凶化吉年】若遇阻礙切莫驚慌自亂陣腳，貴人必會在最關鍵時刻現身相助。今年適合修補破碎的人際關係、進行高端健康檢查或學習玄學智慧。這一年『轉化』能量極強，能徹底解決困擾多年的難題。" 
             },
@@ -320,7 +325,7 @@
                 "annual": "【開拓進取年】今年能量異常充沛，利於啟動擱置已久的宏大開拓計畫。這一年適合大刀闊斧的徹底變革。只要在細節上多加覆核，避免盲目躁進，下半年將有里程碑式的跨越成長與收獲。" 
             },
             "破軍": { 
-                "intro": "破軍星為變革之主。主掌消耗、破壞後的重組與先鋒精神。性格求新求變，具備強烈的破舊立新衝動與開創性破壞力，不畏艱難。", 
+                "intro": "破軍星為北斗變革之主。主掌消耗、破壞後的重組與先鋒精神。性格求新求變，具備強烈的破舊立新衝動與開創性破壞力，不畏艱難。", 
                 "career": "適合電商開拓、市場重組、轉型顧問、廢墟重建或任何具備『顛覆傳統』特質的先鋒產業。不耐守成安穩的工作環境。適合處理積重難返的殘局或在無人荒蕪地帶開荒。要注意在『破』的過程中應盡量保留有價值的核心遺產與資源。在職場中適合擔任轉型核心。", 
                 "wealth": "財運主『大幅波動』，通常先損而後得。錢財流動性極大，擅長打破現有的利益壟斷結構來獲利。理財應聚焦於單一高價值的研發或轉型投入。建議嚴格執行停損控制，並在豐收高峰期及時撤退至安全的資產避風港。不適合穩定的低息存款，應追求轉型紅利。", 
                 "social": "作風特立獨行，絕對不隨波逐流。在社交中容易給他人極端、叛逆或難以捉摸的印象。在感情中勇於付出且不計成本，但也伴隨極強的佔有慾與情緒巨震。擇偶宜選性格極度寬容、具備高度藝術修養或心靈層次高的人。感情生活富戲劇性與張力。社交具備獨特話語權。", 
@@ -331,7 +336,6 @@
 
         const LINKAGE_DB = { "紫微天府": "【紫府同宮格】兩大主星同坐，格局宏大，權力穩定。", "太陽巨門": "【巨日同臨格】太陽光芒驅散巨門猜疑，利於異鄉發展。", "武曲貪狼": "【武貪同行格】大器晚成，能量爆發力強。", "天機太陰": "【機月同臨格】思維極其縝密，具備極強企劃天賦。", "廉貞天相": "【廉相守命格】法規感與公關手腕兼具。", "紫微貪狼": "【桃花犯主格】人際魅力旺盛，需注意慾望節制。" };
 
-        // 保存 API 設定
         function saveApiSettings() {
             localStorage.setItem('田禾宮_apiKey', document.getElementById('apiKey').value);
             localStorage.setItem('田禾宮_apiUrl', document.getElementById('apiUrl').value);
@@ -343,7 +347,6 @@
             initDaysLogic();
         };
 
-        // 萬年曆轉換邏輯 - 還原自 v1.0
         function solarToLunar(y, m, d) {
             const baseDate = new Date(1900, 0, 31);
             const objDate = new Date(y, m - 1, d);
@@ -377,26 +380,15 @@
             return stem + branch;
         }
 
-        // 紫微斗數計算引擎 - 完整還原自 v1.0
         class ZiWeiEngine {
-            constructor() { 
-                this.palaceOrder = ["命宮", "兄弟", "夫妻", "子女", "財帛", "疾厄", "遷移", "交友", "官祿", "田宅", "福德", "父母"]; 
-            }
+            constructor() { this.palaceOrder = ["命宮", "兄弟", "夫妻", "子女", "財帛", "疾厄", "遷移", "交友", "官祿", "田宅", "福德", "父母"]; }
             calculateChart(ly, lm, ld, hourIdx) {
                 const lifePos = (2 + (lm - 1) - hourIdx + 12) % 12;
                 const bodyPos = (2 + (lm - 1) + hourIdx) % 12;
                 const palaces = [];
                 for (let i = 0; i < 12; i++) {
                     const idx = (lifePos - i + 12) % 12;
-                    palaces[idx] = { 
-                        name: this.palaceOrder[i], 
-                        branch: BRANCHES[idx], 
-                        stem: "", 
-                        main_stars: [], 
-                        sec_stars: [], 
-                        age_range: "", 
-                        isBody: (idx === bodyPos) 
-                    };
+                    palaces[idx] = { name: this.palaceOrder[i], branch: BRANCHES[idx], stem: "", main_stars: [], sec_stars: [], age_range: "", isBody: (idx === bodyPos) };
                 }
                 const yearStemIdx = (ly - 4) % 10;
                 const startStemIdx = ((yearStemIdx % 5) * 2 + 2) % 10;
@@ -408,22 +400,17 @@
                 const phase = this.getPhase(palaces[lifePos].stem, palaces[lifePos].branch);
                 const ziweiPos = this.getZiweiPos(ld, phase);
                 this.setMainStars(palaces, ziweiPos);
-                
-                // 次要星曜
                 palaces[(4 + hourIdx) % 12].sec_stars.push("文曲");
                 palaces[(10 - hourIdx + 12) % 12].sec_stars.push("文昌");
                 palaces[(4 + lm - 1) % 12].sec_stars.push("左輔");
                 palaces[(10 - (lm - 1) + 12) % 12].sec_stars.push("右弼");
-                
                 const birthStem = STEMS[yearStemIdx];
                 const lcPos = ({"甲":2,"乙":3,"丙":5,"丁":6,"戊":5,"己":6,"庚":8,"辛":9,"壬":11,"癸":0})[birthStem];
                 palaces[lcPos].sec_stars.push("祿存");
                 palaces[(lcPos + 1) % 12].sec_stars.push("擎羊");
                 palaces[(lcPos - 1 + 12) % 12].sec_stars.push("陀羅");
-                
                 const horseMap = {"子":6,"丑":3,"寅":0,"卯":9,"辰":6,"巳":3,"午":0,"未":9,"申":6,"酉":3,"戌":0,"亥":9};
                 palaces[horseMap[BRANCHES[(ly - 4) % 12]]].sec_stars.push("天馬");
-                
                 for (let i = 0; i < 12; i++) {
                     const startAge = phase + i * 10;
                     palaces[(lifePos + i) % 12].age_range = `${startAge}-${startAge + 9}`;
@@ -431,15 +418,10 @@
                 return { palaces, phase, lifePos, chartYear: ly };
             }
             getPhase(s, b) {
-                const n = { 2: ["甲申","乙酉","丙辰","丁巳","甲寅","乙卯","壬戌","癸亥","丙戌","丁亥"], 3: ["壬午","癸未","庚寅","辛卯","戊戌","己亥","壬子","癸醜","庚申","辛酉"], 4: ["甲子","乙丑","壬申","癸酉","開辰","辛巳","甲午","乙未","壬寅","癸卯"], 5: ["庚午","辛未","戊寅","己卯","丙戌","丁亥","庚子","辛丑","戊申","己酉"], 6: ["丙寅","丁卯","甲戌","乙亥","戊子","己丑","丙申","丁酉","甲辰","乙巳"] };
+                const n = { 2: ["甲申","乙酉","丙辰","丁巳","甲寅","乙卯","壬戌","癸亥","丙戌","丁亥"], 3: ["壬午","癸未","庚寅","辛卯","戊戌","己亥","壬子","癸醜","庚申","辛酉"], 4: ["甲子","乙丑","壬申","癸酉","庚辰","辛巳","甲午","乙未","壬寅","癸卯"], 5: ["庚午","辛未","戊寅","己卯","丙戌","丁亥","庚子","辛丑","戊申","己酉"], 6: ["丙寅","丁卯","甲戌","乙亥","戊子","己丑","丙申","丁酉","甲辰","乙巳"] };
                 const t = s + b; for (let p in n) if (n[p].includes(t)) return parseInt(p); return 2;
             }
-            getZiweiPos(d, p) { 
-                let q = Math.floor(d/p), r = d%p; 
-                if(r===0) return (2+q-1)%12; 
-                let m = p-r; 
-                return (m%2===1) ? (2+q+1-m+12)%12 : (2+q+1+m)%12; 
-            }
+            getZiweiPos(d, p) { let q = Math.floor(d/p), r = d%p; if(r===0) return (2+q-1)%12; let m = p-r; return (m%2===1) ? (2+q+1-m+12)%12 : (2+q+1+m)%12; }
             setMainStars(ps, zv) {
                 const zvs = ["紫微","天機","太陽","武曲","天同","廉貞"], zvo = [0,-1,-3,-4,-5,-8];
                 zvs.forEach((s,i) => ps[(zv+zvo[i]+12)%12].main_stars.push(s));
@@ -448,9 +430,8 @@
             }
         }
 
-        let currentPalaces = null, currentMetadata = null;
+        let currentPalaces = null, currentMetadata = null, pInterval;
 
-        // 渲染命盤圖形 - 完整還原自 v1.0
         function renderChart(palaces) {
             const chartGrid = document.getElementById('chartGrid');
             chartGrid.innerHTML = '';
@@ -484,28 +465,25 @@
             }
         }
 
-        // 渲染分析報告 - 完整還原自 v1.0
         function renderAnalysis(name, lDate, ps, lifePos) {
             const [ly, lm, ld, isL] = lDate;
             const bStem = STEMS[(ly - 4) % 10];
             const thisY = new Date().getFullYear();
-            const stars = ps[lifePos].main_stars.length > 0 ? ps[lifePos].main_stars : ps[(lifePos+6)%12].main_stars;
-            currentMetadata = { name, lDate, stars, thisY, chartYear: ly };
-            
+            const nextY = thisY + 1;
+            currentMetadata = { name, lDate, stars: ps[lifePos].main_stars.length > 0 ? ps[lifePos].main_stars : ps[(lifePos+6)%12].main_stars, thisY, nextY, chartYear: ly };
             let ci = "", cc = "", cw = "", cs = "", ch = "", ca = "";
-            stars.forEach(s => {
+            currentMetadata.stars.forEach(s => {
                 const i = STAR_DB[s]; if(!i) return;
                 ci += (ci ? "與" : "") + i.intro;
-                cc += `<div class="analysis-item"><b>💼 【${s}星】之事業潛力與適配：</b><p>${i.career}</p></div>`;
-                cw += `<div class="analysis-item"><b>💰 【${s}星】之財富機緣與理財：</b><p>${i.wealth}</p></div>`;
-                cs += `<div class="analysis-item"><b>🤝 【${s}星】之人際交際與情緣：</b><p>${i.social}</p></div>`;
-                ch += `<div class="analysis-item"><b>🛡️ 【${s}星】之健康提醒與調養：</b><p>${i.health}</p></div>`;
+                cc += `<div class="analysis-item"><b>💼 【${s}】之事業潛力與適配：</b><p>${i.career}</p></div>`;
+                cw += `<div class="analysis-item"><b>💰 【${s}】之財富機緣與理財：</b><p>${i.wealth}</p></div>`;
+                cs += `<div class="analysis-item"><b>🤝 【${s}】之人際交際與情緣：</b><p>${i.social}</p></div>`;
+                ch += `<div class="analysis-item"><b>🛡️ 【${s}】之健康提醒與調養：</b><p>${i.health}</p></div>`;
                 ca += `<li><b>【${s}星流年預測】：</b>${i.annual}</li>`;
             });
-
             document.getElementById('analysisContent').innerHTML = `
                 <div class="analysis-header"><h2>田 禾 宮 ・ 深度詳批報告</h2></div>
-                <div class="info-box"><table><tr><td><b>緣主：</b> ${name}</td><td><b>主星：</b> <span class="highlight">${stars.join('、')}</span></td></tr>
+                <div class="info-box"><table><tr><td><b>緣主：</b> ${name}</td><td><b>主星：</b> <span class="highlight">${currentMetadata.stars.join('、')}</span></td></tr>
                 <tr><td><b>生辰：</b> 農曆${ly}(${bStem})年${isL?'閏':''}${lm}月${ld}日</td><td><b>流年環境：</b> 西元 ${thisY} (${getStemBranch(thisY)}) 年</td></tr></table></div>
                 <div class="section-title">【本命格局詳盡深度解析】</div>
                 <div class="section-content"><p class="quote">「${ci}」</p>${cc}${cw}${cs}${ch}</div>
@@ -514,64 +492,72 @@
             `;
         }
 
-        // AI 解析邏輯 - ngrok 專用優化 (含跳過警告 Header)
+        function startAIProgress() {
+            const w = document.getElementById('aiProgressWrapper'), b = document.getElementById('aiProgressBar'), s = document.getElementById('aiStatusText');
+            w.style.display = 'block'; s.style.display = 'block'; b.style.width = '0%';
+            let cur = 0; const stages = [{ limit: 30, text: "🔮 正在啟動天機推演..." }, { limit: 60, text: "🌌 正在核對農曆年份與磁場..." }, { limit: 85, text: `✨ 正在鎖定 ${currentMetadata.thisY} 流年連動...` }, { limit: 95, text: "📜 正在撰寫大師深度建議..." }];
+            pInterval = setInterval(() => { if (cur < 90) { cur += Math.random() * 5; b.style.width = cur + '%'; s.innerText = (stages.find(st => cur < st.limit) || stages[stages.length - 1]).text; } }, 300);
+        }
+        function completeAIProgress() { clearInterval(pInterval); document.getElementById('aiProgressBar').style.width = '100%'; document.getElementById('aiStatusText').innerText = "✅ 天機感應成功"; setTimeout(() => { document.getElementById('aiProgressWrapper').style.display = 'none'; document.getElementById('aiStatusText').style.display = 'none'; }, 800); }
+
         async function triggerAIAnalysis() {
             let url = document.getElementById('apiUrl').value.trim();
             const key = document.getElementById('apiKey').value.trim();
-            if (!url) { alert("請填寫 AI API URL！"); return; }
-            if (!url.includes("/v1")) { url = url.replace(/\/$/, "") + "/v1/chat/completions"; }
-            else if (url.endsWith("/v1") || url.endsWith("/v1/")) { url = url.replace(/\/$/, "") + "/chat/completions"; }
+            if (!url) { alert("請輸入 Local API URL。"); return; }
+            if (url.endsWith("/v1")) url += "/chat/completions"; else if (url.endsWith("/v1/")) url += "chat/completions";
+            if (!currentMetadata) { alert("請先完成排盤"); return; }
 
-            if (!currentMetadata) { alert("請先排盤！"); return; }
             const aiBtn = document.getElementById('aiBtn'), resDiv = document.getElementById('aiResult');
-            aiBtn.disabled = true; resDiv.innerHTML = "🔮 正在讀取天機..."; 
-            
+            aiBtn.disabled = true; resDiv.innerHTML = ""; startAIProgress();
             const sum = currentPalaces.map(p => `${p.name}(${p.stem}${p.branch}):[${p.main_stars.join(',')}]`).join(' | ');
-            const prompt = `你是紫微斗數大師「田禾宮主」。請提供一份詳盡深度分析報告。命主：${currentMetadata.name}，主星：${currentMetadata.stars.join('、')}。今年西元：${currentMetadata.thisY} 年。格局：${sum}。請務必詳細分析本命格局與今年運勢，口吻莊重專業。內容禁止精簡，字數需在 1200 字以上。`;
-
-            // ngrok 專用 Header: ngrok-skip-browser-warning
-            const headers = { 
-                'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': 'true' 
-            };
-            if (key) headers['Authorization'] = `Bearer ${key}`;
+            
+            const prompt = `你是紫微斗數大師「田禾宮主」。請務必嚴格遵守年份設定，不得產生幻覺：
+            
+            【緣主生辰資料】
+            姓名：${currentMetadata.name}
+            農曆出生年份：${currentMetadata.lDate[0]} 年 (重要：這是出生年份，嚴禁用此年份當作「今年」)
+            農曆生辰：${currentMetadata.lDate[3]?'閏':''}${currentMetadata.lDate[1]} 月 ${currentMetadata.lDate[2]} 日
+            
+            【當前時間環境】
+            現在西元：${currentMetadata.thisY} 年 (流年：${getStemBranch(currentMetadata.thisY)}年)
+            明年西元：${currentMetadata.nextY} 年 (流年：${getStemBranch(currentMetadata.nextY)}年)
+            
+            【排盤摘要】
+            宮位配置：${sum}。命主主星：${currentMetadata.stars.join('、')}。
+            
+            請提供一份超過 1200 字的詳盡深度分析報告。包含：
+            1. 命格格局與特殊天賦深度解讀。
+            2. 【${currentMetadata.thisY} ${getStemBranch(currentMetadata.thisY)}流年預測】：詳盡分析今年的事業、財運、情感吉凶。
+            3. 【${currentMetadata.nextY} ${getStemBranch(currentMetadata.nextY)}流年展望】：明年的趨勢與提前佈局建議。
+            4. 具體大師行動方針。
+            要求：口吻莊重專業。內容【嚴禁精簡】，請盡可能深入解析，維持大師質感。`;
 
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify({ 
-                        model: "local-model", 
-                        messages: [{ role: "user", content: prompt }], 
-                        temperature: 0.7,
-                        stream: true 
-                    })
+                    headers: { 'Content-Type': 'application/json', ...(key && { 'Authorization': `Bearer ${key}` }) },
+                    body: JSON.stringify({ model: "local-model", messages: [{ role: "user", content: prompt }], temperature: 0.7, stream: true }),
+                    mode: 'cors'
                 });
-
-                if (!response.ok) {
-                    throw new Error(`連線失敗 (${response.status})。請檢查伺服器是否啟動。`);
-                }
-
+                if (!response.ok) throw new Error(`連線失敗 (${response.status})`);
                 const reader = response.body.getReader(), decoder = new TextDecoder();
-                let full = "";
+                let full = "", first = true;
                 while (true) {
                     const { done, value } = await reader.read(); if (done) break;
                     const chunk = decoder.decode(value, { stream: true });
                     const lines = chunk.split("\n");
                     for (const line of lines) {
                         if (line.startsWith("data: ")) {
-                            const dataStr = line.slice(6).trim();
-                            if (dataStr === "[DONE]") break;
+                            const dataStr = line.slice(6).trim(); if (dataStr === "[DONE]") break;
                             try {
                                 const d = JSON.parse(dataStr);
                                 const content = d.choices?.[0]?.delta?.content || "";
-                                if (content) { full += content; resDiv.innerHTML = full.replace(/\n/g, "<br>"); }
+                                if (content) { if (first) { completeAIProgress(); first = false; } full += content; resDiv.innerHTML = full.replace(/\n/g, "<br>"); }
                             } catch (e) {}
                         }
                     }
                 }
-            } catch (error) { resDiv.innerHTML = `<span style="color:red;">❌ 推演失敗: ${error.message}</span>`; }
-            finally { aiBtn.disabled = false; }
+            } catch (error) { clearInterval(pInterval); resDiv.innerHTML = `<span style="color:red;">❌ 推演失敗: ${error.message}</span>`; } finally { aiBtn.disabled = false; }
         }
 
         function runAnalysis() {
@@ -583,7 +569,7 @@
             if (!year || year < 1900 || year > 2100) { alert("年份錯誤"); return; }
             const lDate = solarToLunar(year, month, day);
             const engine = new ZiWeiEngine();
-            const { palaces, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
+            const { palaces, phase, lifePos } = engine.calculateChart(lDate[0], lDate[1], lDate[2], hourIdx);
             currentPalaces = palaces; renderChart(palaces); renderAnalysis(name, lDate, palaces, lifePos);
             document.getElementById('result').classList.add('active');
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
@@ -593,13 +579,8 @@
             const dSel = document.getElementById('day');
             const m = parseInt(document.getElementById('month').value), y = parseInt(document.getElementById('year').value);
             const days = new Date(y, m, 0).getDate();
-            const currentDay = parseInt(dSel.value) || 1;
             dSel.innerHTML = '';
-            for (let i = 1; i <= days; i++) { 
-                const opt = document.createElement('option'); opt.value = i; opt.textContent = i + '日'; 
-                if(i === currentDay) opt.selected = true;
-                dSel.appendChild(opt); 
-            }
+            for (let i = 1; i <= days; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = i + '日'; dSel.appendChild(opt); }
         }
         document.getElementById('month').addEventListener('change', initDaysLogic);
         document.getElementById('year').addEventListener('change', initDaysLogic);
@@ -607,3 +588,4 @@
     </script>
 </body>
 </html>
+
